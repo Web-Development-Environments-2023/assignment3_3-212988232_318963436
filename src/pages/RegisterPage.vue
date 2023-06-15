@@ -26,6 +26,28 @@
       </b-form-group>
 
       <b-form-group
+        id="input-group-firstname"
+        label="First Name:"
+        label-cols-sm="3"
+      >
+        <b-form-input
+          id="firstname"
+          type="text"
+          v-model="$v.form.firstName.$model"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
+        id="input-group-lastname"
+        label="Last Name:"
+        label-cols-sm="3"
+      >
+        <b-form-input
+          id="lastname"
+          type="text"
+          v-model="$v.form.lastName.$model"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
         id="input-group-country"
         label-cols-sm="3"
         label="Country:"
@@ -89,6 +111,17 @@
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
       </b-form-group>
+      <b-form-group id="input-group-email" label="Email:" label-cols-sm="3">
+        <b-form-input
+          id="email"
+          type="email"
+          v-model="$v.form.email.$model"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          Email is required
+        </b-form-invalid-feedback>
+      </b-form-group>
 
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
@@ -127,7 +160,7 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
 } from "vuelidate/lib/validators";
 
 export default {
@@ -142,11 +175,11 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
-        submitError: undefined
+        submitError: undefined,
       },
       countries: [{ value: null, text: "", disabled: true }],
       errors: [],
-      validated: false
+      validated: false,
     };
   },
   validations: {
@@ -154,20 +187,31 @@ export default {
       username: {
         required,
         length: (u) => minLength(3)(u) && maxLength(8)(u),
-        alpha
+        alpha,
+      },
+
+      firstName: {
+        required,
+      },
+      lastName: {
+        required,
       },
       country: {
-        required
+        required,
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
       },
       confirmedPassword: {
         required,
-        sameAsPassword: sameAs("password")
-      }
-    }
+        sameAsPassword: sameAs("password"),
+      },
+      email: {
+        required,
+        email,
+      },
+    },
   },
   mounted() {
     // console.log("mounted");
@@ -181,15 +225,15 @@ export default {
     },
     async Register() {
       try {
-        const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
+        const response = await this.$store.dispatch("register", {
+          username: this.form.username,
+          password: this.form.password,
+          email: this.form.email,
+          firstname: this.form.firstName,
+          lastname: this.form.lastName,
+          country: this.form.country,
+        });
 
-          {
-            username: this.form.username,
-            password: this.form.password
-          }
-        );
         this.$router.push("/login");
         // console.log(response);
       } catch (err) {
@@ -198,7 +242,7 @@ export default {
       }
     },
     onRegister() {
-      // console.log("register method called");
+      console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -214,13 +258,13 @@ export default {
         country: null,
         password: "",
         confirmedPassword: "",
-        email: ""
+        email: "",
       };
       this.$nextTick(() => {
         this.$v.$reset();
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

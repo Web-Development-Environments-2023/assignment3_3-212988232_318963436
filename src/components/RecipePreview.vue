@@ -1,65 +1,53 @@
 <template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+  <div class="card" style="width: 18rem;">
+    <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+
+    <div class="card-body">
+      <h5 class="card-title">{{ this.title }}</h5>
+      <p class="card-text">
+        {{ this.readyInMinutes }} minutes {{ this.popularity }} likes
+        {{ this.servings }} servings {{ this.vegan }} vegan
+        {{ this.vegetarian }} vegetarian {{ this.glutenFree }} glutenFree
+        {{ this.favorite }} favorite {{ this.seen }} seen
+      </p>
     </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
-    </div>
-  </router-link>
+
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: this.id } }"
+      class="recipe-preview"
+      type="button"
+    >
+      <a href="#" class="btn btn-primary">recipe page</a>
+    </router-link>
+  </div>
 </template>
 
 <script>
+import Axios from "axios";
+
 export default {
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
   data() {
     return {
-      image_load: false
+      id: this.recipe.id,
+      title: this.recipe.title,
+      readyInMinutes: this.recipe.readyInMinutes,
+      image: this.recipe.image,
+      popularity: this.recipe.popularity,
+      vegan: this.recipe.vegan,
+      vegetarian: this.recipe.vegetarian,
+      glutenFree: this.recipe.glutenFree,
+      servings: this.recipe.servings,
+      favorite: this.recipe.favorite,
+      seen: this.recipe.seen,
+      image_load: true,
     };
   },
   props: {
     recipe: {
       type: Object,
-      required: true
-    }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 
