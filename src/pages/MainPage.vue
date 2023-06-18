@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
+    <RecipePreviewList
+      title="Random Recipes"
+      isRandom="random"
+      class="RandomRecipes center"
+    />
     <router-link v-if="!$store.state.username" to="/login" tag="button"
       >You need to Login to vue this</router-link
     >
@@ -9,7 +13,7 @@
     <RecipePreviewList
       v-if="$store.state.username"
       title="Last Viewed Recipes"
-      isRandom="false"
+      isRandom="seen"
       :class="{
         RandomRecipes: true,
         blur: !$store.state.username,

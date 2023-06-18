@@ -12,14 +12,26 @@
           vegetarian <br />{{ this.glutenFree }} glutenFree <br />{{
             this.favorite
           }}
-          favorite <br />{{ this.seen }} seen
+          favorite <br />{{ this.seen }} seen <br />
+          <input
+            id="favorite"
+            type="button"
+            value="favorite"
+            @click="setFavorite"
+          />
+          <input
+            id="unfavorite"
+            type="button"
+            value="unfavorite"
+            @click="setFavorite"
+          />
         </p>
         <h5>ingredients</h5>
-        <b-container>
+        <!-- <b-container>
           <b-row>
             <b-col v-for="ingredient in this.ingredients" :key="ingredient.id">
               <h3>{{ ingredient.name }}:</h3>
-              <div class="card" style="width: 18rem;">
+              <div class="card" style="width: 6rem;height: 6rem;">
                 <img
                   :src="getImageSrc(ingredient.image)"
                   class="card-img-top"
@@ -34,14 +46,33 @@
               </div>
             </b-col>
           </b-row>
+        </b-container> -->
+        <b-container>
+          <div class="card-group">
+            <div
+              v-for="ingredient in this.ingredients"
+              :key="ingredient.id"
+              class="card"
+              width="7rem"
+              height="7rem"
+            >
+              <img :src="getImageSrc(ingredient.image)" class="card-img-top" />
+              <div class="card-body">
+                <h5 class="card-title">{{ ingredient.name }}</h5>
+                <p class="card-text">
+                  <br />
+                  amount : {{ ingredient.amount.us.value }} <br />
+                  units : {{ ingredient.amount.us.unit }}
+                </p>
+                <p class="card-text">
+                  <small class="text-body-secondary"
+                    >Last updated 3 mins ago</small
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
         </b-container>
-
-        <ul>
-          <li v-for="ingredient in this.ingredients" :key="ingredient.id">
-            {{ ingredient.name }} {{ ingredient.amount.us.value }}
-            {{ ingredient.amount.us.unit }}
-          </li>
-        </ul>
         <h5>instructions</h5>
         <ol>
           <li v-for="instruction in this.instructions" :key="instruction.id">
@@ -69,7 +100,7 @@ export default {
       seen: "",
       instructions: "",
       ingredients: "",
-      prefix: "https://spoonacular.com/cdn/ingredients_50x50/",
+      prefix: "https://spoonacular.com/cdn/ingredients_100x100/",
     };
   },
   async created() {
@@ -112,34 +143,6 @@ export default {
       this.seen = seen;
       this.instructions = instructions;
       this.ingredients = ingredients;
-
-      console.log("response", response);
-      console.log(
-        "title",
-        title,
-        "image",
-        image,
-        "id",
-        id,
-        "instructions",
-        instructions,
-        "ingredients",
-        ingredients,
-        "readyInMinutes",
-        readyInMinutes,
-        "vegan",
-        vegan,
-        "vegetarian",
-        vegetarian,
-        "glutenFree",
-        glutenFree,
-        "servings",
-        servings,
-        "favorite",
-        favorite,
-        "seen",
-        seen
-      );
     } catch (error) {
       console.log("error.response.status", error.response.status);
       this.$router.replace("/NotFound");
@@ -150,6 +153,41 @@ export default {
     getImageSrc(image) {
       return this.prefix + image;
     },
+    async setFavorite() {
+      try {
+        let recipeId = this.id;
+        let response = await this.$store.dispatch("setFavorite", {
+          recipeId: recipeId,
+          isFav: !this.favorite,
+        });
+
+        if (response.status === 200) {
+          this.favorite = !this.favorite;
+          await this.changeBTN();
+        }
+      } catch (error) {
+        console.log("error.response.status", error.response.status);
+        this.$router.replace("/NotFound");
+        return;
+      }
+    },
+    async changeBTN() {
+      if (this.$store.state.username) {
+        if (this.favorite) {
+          document.getElementById("favorite").style.display = "none";
+          document.getElementById("unfavorite").style.display = "block";
+        } else {
+          document.getElementById("favorite").style.display = "block";
+          document.getElementById("unfavorite").style.display = "none";
+        }
+      } else {
+        document.getElementById("favorite").style.display = "none";
+        document.getElementById("unfavorite").style.display = "none";
+      }
+    },
+  },
+  async mounted() {
+    await this.changeBTN();
   },
 };
 </script>
@@ -167,6 +205,7 @@ export default {
   margin-right: auto;
   width: 50%;
 }
+
 /* .recipe-header{
 
 } */

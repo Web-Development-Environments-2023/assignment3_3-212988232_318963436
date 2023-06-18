@@ -41,10 +41,13 @@ export default {
     async updateRecipes() {
       try {
         let response;
+
         if (this.isRandom === "random") {
           response = await this.$store.dispatch("randomRecipes");
-        } else {
+        } else if (this.isRandom === "seen") {
           response = await this.$store.dispatch("seen");
+        } else if (this.isRandom === "favorites") {
+          response = await this.$store.dispatch("getFavorite");
         }
         // "https://test-for-3-2.herokuapp.com/recipes/random"
         // console.log(response);

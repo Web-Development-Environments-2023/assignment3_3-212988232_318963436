@@ -91,6 +91,49 @@ const store = new Vuex.Store({
         console.log(err);
       }
     },
+    async setFavorite({ commit }, { recipeId, isFav }) {
+      try {
+        const res = await user.setFavorite(recipeId, isFav);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getFavorite({ commit }) {
+      try {
+        const res = await user.getFavorite();
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async search({ commit }, { query, number, cuisine, diet, intolerances }) {
+      try {
+        if (this.state.username == "") {
+          const res = await user.search(
+            "recipes",
+            query,
+            number,
+            cuisine,
+            diet,
+            intolerances
+          );
+          return res;
+        } else {
+          const res = await user.search(
+            "users",
+            query,
+            number,
+            cuisine,
+            diet,
+            intolerances
+          );
+          return res;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   getters: {
     username: (state) => state.username,

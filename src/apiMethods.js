@@ -111,11 +111,59 @@ const recipe = async (recipeId, path) => {
     console.log(err);
   }
 };
+const setFavorite = async (recipeId, isfav) => {
+  try {
+    const res = await axios.post(
+      `${server_domain}/users/favorite`,
+      {
+        recipeId: recipeId,
+        isfav: isfav,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const getFavorite = async () => {
+  try {
+    const res = await axios.get(`${server_domain}/users/favorite`, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const search = async (path, query, number, cuisine, diet, intolerances) => {
+  try {
+    const res = await axios.get(`${server_domain}/${path}/search`, {
+      params: {
+        name: query,
+        number: number,
+        cuisine: cuisine,
+        diet: diet,
+        intolerances: intolerances,
+      },
+      withCredentials: true,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const user = {
   randomRecipes: randomRecipes,
   favoriteRecipes: favoriteRecipes,
   seen: seen,
   recipe: recipe,
+  setFavorite: setFavorite,
+  getFavorite: getFavorite,
+  search: search,
 };
 
 ///////////////////////////////////////////Export///////////////////////////////////////////
