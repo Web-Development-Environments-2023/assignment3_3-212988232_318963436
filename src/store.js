@@ -12,7 +12,7 @@ const store = new Vuex.Store({
     async login({ commit }, { username, password }) {
       try {
         const res = await auth.login(username, password);
-        if (res.success) {
+        if (res.status == 200) {
           commit("setUsername", username);
         }
         return res;

@@ -56,8 +56,4 @@ const intolerances = [
   "Wheat",
 ];
 
-export default {
-  cuisines: cuisines,
-  diets: diets,
-  intolerances: intolerances,
-};
+export { cuisines, diets, intolerances };

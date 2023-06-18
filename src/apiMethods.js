@@ -16,9 +16,10 @@ const login = async (username, password) => {
         withCredentials: true,
       }
     );
-    return res.data;
+    return res;
   } catch (err) {
     console.log(err);
+    return { status: 401, message: "Wrong username or password" };
   }
 };
 //api call for register

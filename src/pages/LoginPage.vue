@@ -97,14 +97,17 @@ export default {
           username: this.form.username,
           password: this.form.password,
         });
-
-        this.$router.push("/");
-
+        console.log(response);
+        if (response.status == 200) {
+          this.$router.push("/");
+        } else {
+          this.form.submitError = response.message;
+        }
         // console.log(response);
         // this.$root.loggedIn = true;
       } catch (err) {
         console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        this.form.submitError = err.response.message;
       }
     },
     onLogin() {
