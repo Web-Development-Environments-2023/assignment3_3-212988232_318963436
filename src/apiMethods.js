@@ -156,6 +156,61 @@ const search = async (path, query, number, cuisine, diet, intolerances) => {
     console.log(err);
   }
 };
+const myRecipes = async () => {
+  try {
+    const res = await axios.get(`${server_domain}/users/myRecipes`, {
+      withCredentials: true,
+    });
+    console.log("API mathodes", res);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    console.log("API mathodes", res);
+    return { status: 401, message: "Something goes wrong" };
+  }
+};
+const getRecipe = async (recipeId) => {
+  try {
+    const res = await axios.get(`${server_domain}/users/recipe`, {
+      params: {
+        id: recipeId,
+      },
+      withCredentials: true,
+    });
+
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return { status: 401, message: "Something goes wrong" };
+  }
+};
+const getIngerdients = async (query) => {
+  try {
+    const res = await axios.get(`${server_domain}/users/ingredients`, {
+      params: {
+        name: query,
+      },
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const addRecipe = async (recipe) => {
+  try {
+    const res = await axios.post(
+      `${server_domain}/users/myRecipes`,
+      {
+        recipe: recipe,
+      },
+      { withCredentials: true }
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const user = {
   randomRecipes: randomRecipes,
@@ -165,6 +220,10 @@ const user = {
   setFavorite: setFavorite,
   getFavorite: getFavorite,
   search: search,
+  myRecipes: myRecipes,
+  getRecipe: getRecipe,
+  getIngerdients: getIngerdients,
+  addRecipe: addRecipe,
 };
 
 ///////////////////////////////////////////Export///////////////////////////////////////////

@@ -1,30 +1,45 @@
 <template>
-  <div class="card" style="width: 18rem;">
-    <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+  <div class="center">
+    <div class="card" style="width: 18rem;">
+      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
 
-    <div class="card-body">
-      <h5 class="card-title">{{ this.title }}</h5>
-      <p class="card-text">
-        {{ this.readyInMinutes }} minutes {{ this.popularity }} likes
-        {{ this.servings }} servings {{ this.vegan }} vegan
-        {{ this.vegetarian }} vegetarian {{ this.glutenFree }} glutenFree
-        {{ this.favorite }} favorite {{ this.seen }} seen
-      </p>
+      <div class="card-body">
+        <h5 class="card-title">{{ this.title }}</h5>
+        <p class="card-text">
+          {{ this.readyInMinutes }} minutes {{ this.popularity }} likes
+          {{ this.servings }} servings {{ this.vegan }} vegan
+          {{ this.vegetarian }} vegetarian {{ this.glutenFree }} glutenFree
+          {{ this.favorite }} favorite {{ this.seen }} seen
+        </p>
+      </div>
+
+      <router-link
+        v-if="!UserRecipe"
+        :to="{
+          name: 'recipe',
+          params: { recipeId: this.id },
+        }"
+        class="recipe-preview"
+        type="button"
+      >
+        <a href="#" class="btn btn-primary">recipe page</a>
+      </router-link>
+      <router-link
+        v-if="UserRecipe"
+        :to="{
+          name: 'recipeUser',
+          params: { recipeId: this.id },
+        }"
+        class="recipe-preview"
+        type="button"
+      >
+        <a href="#" class="btn btn-primary">recipe page</a>
+      </router-link>
     </div>
-
-    <router-link
-      :to="{ name: 'recipe', params: { recipeId: this.id } }"
-      class="recipe-preview"
-      type="button"
-    >
-      <a href="#" class="btn btn-primary">recipe page</a>
-    </router-link>
   </div>
 </template>
 
 <script>
-import Axios from "axios";
-
 export default {
   data() {
     return {
@@ -46,6 +61,11 @@ export default {
     recipe: {
       type: Object,
       required: true,
+    },
+    UserRecipe: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
 };

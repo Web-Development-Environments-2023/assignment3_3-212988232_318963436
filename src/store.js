@@ -134,6 +134,40 @@ const store = new Vuex.Store({
         console.log(err);
       }
     },
+    async myRecipes({ commit }) {
+      try {
+        const res = await user.myRecipes();
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getRecipe({ commit }, { recipeId }) {
+      try {
+        console.log(recipeId, "from store");
+        const res = await user.getRecipe(recipeId);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getIngerdients({ commit }, { query }) {
+      try {
+        const res = await user.getIngredients(query);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async addRecipe({ commit }, { recipe }) {
+      try {
+        const res = await user.addRecipe(recipe);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   getters: {
     username: (state) => state.username,

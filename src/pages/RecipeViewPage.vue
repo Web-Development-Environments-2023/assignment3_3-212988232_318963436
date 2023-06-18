@@ -27,26 +27,6 @@
           />
         </p>
         <h5>ingredients</h5>
-        <!-- <b-container>
-          <b-row>
-            <b-col v-for="ingredient in this.ingredients" :key="ingredient.id">
-              <h3>{{ ingredient.name }}:</h3>
-              <div class="card" style="width: 6rem;height: 6rem;">
-                <img
-                  :src="getImageSrc(ingredient.image)"
-                  class="card-img-top"
-                />
-                <div class="card-body">
-                  <p class="card-text">
-                    <br />
-                    amount : {{ ingredient.amount.us.value }} <br />
-                    units : {{ ingredient.amount.us.unit }}
-                  </p>
-                </div>
-              </div>
-            </b-col>
-          </b-row>
-        </b-container> -->
         <b-container>
           <div class="card-group">
             <div
@@ -106,15 +86,16 @@ export default {
   async created() {
     try {
       let recipeId = parseInt(this.$route.params.recipeId);
+
       console.log("this.recipeId", recipeId);
       let response;
+
       response = await this.$store.dispatch("recipe", { recipeId: recipeId });
       console.log("response", response);
       if (!response.id === recipeId) {
         this.$router.replace("/NotFound");
         return;
       }
-
       const {
         id,
         title,
@@ -124,10 +105,6 @@ export default {
         vegetarian,
         glutenFree,
         servings,
-        favorite,
-        seen,
-        instructions,
-        ingredients,
       } = response; // Use destructuring to assign response properties
 
       // Assign the values to component data properties
@@ -144,13 +121,18 @@ export default {
       this.instructions = instructions;
       this.ingredients = ingredients;
     } catch (error) {
+      console.log("error", error);
       console.log("error.response.status", error.response.status);
       this.$router.replace("/NotFound");
       return;
     }
   },
+
   methods: {
     getImageSrc(image) {
+      if (this.UserRecipe) {
+        return image;
+      }
       return this.prefix + image;
     },
     async setFavorite() {
