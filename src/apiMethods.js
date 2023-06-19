@@ -224,6 +224,116 @@ const user = {
   getIngredients: getIngredients,
   addRecipe: addRecipe,
 };
+///////////////////////////////////////////Family///////////////////////////////////////////
+
+const myFamilies = async () => {
+  try {
+    const res = await axios.get(`${server_domain}/users/family/myFamilies`, {
+      withCredentials: true,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+    return { status: 401, message: "Something goes wrong" };
+  }
+};
+
+const createFamily = async (family_name) => {
+  try {
+    const res = await axios.post(
+      `${server_domain}/users/family/create`,
+      {
+        family_name: family_name,
+      },
+      { withCredentials: true }
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const joinFamily = async (family_id, isAdd) => {
+  try {
+    const res = await axios.post(
+      `${server_domain}/users/family/add`,
+      {
+        family_id: family_id,
+        isAdd: isAdd,
+      },
+      { withCredentials: true }
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const getFamilyRecipes = async (family_id) => {
+  try {
+    const res = await axios.get(`${server_domain}/users/family/recipes`, {
+      params: {
+        family_id: family_id,
+      },
+      withCredentials: true,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const searchFamily = async (query) => {
+  try {
+    const res = await axios.get(`${server_domain}/users/family/search`, {
+      params: {
+        family_name: query,
+      },
+      withCredentials: true,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const getFamilyMembers = async (family_id) => {
+  try {
+    const res = await axios.get(`${server_domain}/users/family/members`, {
+      params: {
+        family_id: family_id,
+      },
+      withCredentials: true,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const addRecipeToFamily = async (family_id, recipe_id, about, isAdd) => {
+  try {
+    const res = await axios.post(
+      `${server_domain}/users/family/addRecipe`,
+      {
+        family_id: family_id,
+        id: recipe_id,
+        data: about,
+        isAdd: isAdd,
+      },
+      { withCredentials: true }
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const family = {
+  myFamilies: myFamilies,
+  createFamily: createFamily,
+  joinFamily: joinFamily,
+  getFamilyRecipes: getFamilyRecipes,
+  searchFamily: searchFamily,
+  getFamilyMembers: getFamilyMembers,
+  addRecipeToFamily: addRecipeToFamily,
+};
 
 ///////////////////////////////////////////Export///////////////////////////////////////////
-export { auth, user };
+export { auth, user, family };

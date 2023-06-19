@@ -58,7 +58,6 @@ export default {
           response = await this.$store.dispatch("getFavorite");
         } else if (this.isRandom === "MyRecipes") {
           response = await this.$store.dispatch("myRecipes");
-          console.log("recipes", response);
           response.map((recipe) => {
             recipe.vegan = true ? recipe.vegan === 1 : false;
             recipe.vegetarian = true ? recipe.vegetarian === 1 : false;

@@ -1,6 +1,6 @@
 import Vuex from "vuex";
 import Vue from "vue";
-import { auth, user } from "./apiMethods";
+import { auth, user, family } from "./apiMethods";
 
 Vue.use(Vuex);
 
@@ -168,7 +168,72 @@ const store = new Vuex.Store({
         console.log(err);
       }
     },
+    async myFamilies({ commit }) {
+      try {
+        const res = await family.myFamilies();
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getFamilyMembers({ commit }, { familyId }) {
+      try {
+        const res = await family.getFamilyMembers(familyId);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async searchFamily({ commit }, { query }) {
+      try {
+        const res = await family.searchFamily(query);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async joinFamily({ commit }, { familyId, isAdd }) {
+      try {
+        const res = await family.joinFamily(familyId, isAdd);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async createFamily({ commit }, { family_name }) {
+      try {
+        const res = await family.createFamily(family_name);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getFamilyRecipes({ commit }, { familyId }) {
+      try {
+        const res = await family.getFamilyRecipes(familyId);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async addRecipeToFamily({ commit }, { familyId, recipeId, about, isAdd }) {
+      try {
+        console.log(familyId, recipeId, about, isAdd, "from store");
+        const res = await family.addRecipeToFamily(
+          familyId,
+          recipeId,
+          about,
+          isAdd
+        );
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
+
   getters: {
     username: (state) => state.username,
   },
