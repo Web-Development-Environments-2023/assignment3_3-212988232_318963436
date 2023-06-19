@@ -1,16 +1,15 @@
 <template>
   <div class="container">
     <h1 class="title">My Recipes</h1>
-
+    <b-button @click="openCreateRecipeModal">Create Recipe</b-button>
     <RecipePreviewList
+      :change-flag="recipes.length"
       title="Personal recipes"
       isRandom="MyRecipes"
       :UserRecipe="true"
     ></RecipePreviewList>
 
     <div id="addRecipe">
-      <b-button @click="openCreateRecipeModal">Create Recipe</b-button>
-
       <b-modal
         v-model="showCreateRecipeModal"
         size="lg"
@@ -82,20 +81,54 @@
               >Gluten-Free</b-form-checkbox
             >
           </b-form-group>
+
           <div v-if="newRecipe.instructions.length > 0">
             <h3>Instructions:</h3>
-            <div
-              v-for="(instruction, index) in newRecipe.instructions"
-              :key="index"
-            >
+
+            <div>
               <div class="instruction-item">
-                <p>{{ index + 1 }}. {{ instruction }}</p>
-                <b-button
-                  @click="deleteInstruction(index)"
-                  variant="outline-secondary"
-                  size="sm"
-                  >-</b-button
-                >
+                <ol style="width: 100%; ">
+                  <li
+                    v-for="(instruction, index) in newRecipe.instructions"
+                    :key="index"
+                  >
+                    <div class="instruction-item">
+                      <p>{{ instruction }}</p>
+                      <b-button
+                        @click="deleteInstruction(index)"
+                        variant="outline-secondary"
+                        size="sm"
+                        >-</b-button
+                      >
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div v-if="newRecipe.ingredients.length > 0">
+            <h3>Ingredients:</h3>
+            <div>
+              <div class="instruction-item">
+                <ul style="width: 100%; ">
+                  <li
+                    v-for="(ingredient, index) in newRecipe.ingredients"
+                    :key="index"
+                  >
+                    <div class="instruction-item">
+                      <p>
+                        {{ ingredient.name }},{{ ingredient.amount }}
+                        {{ ingredient.unit }}
+                      </p>
+                      <b-button
+                        @click="deleteIngredient(index)"
+                        variant="outline-secondary"
+                        size="sm"
+                        >-</b-button
+                      >
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -111,7 +144,11 @@
           >
         </div>
       </b-modal>
-      <b-modal v-model="showAddIngredientsModal" title="Add Ingredients">
+      <b-modal
+        v-model="showAddIngredientsModal"
+        title="Add Ingredients"
+        hide-footer
+      >
         <b-form @submit.prevent="searchIngredients">
           <b-form-group
             label="Search"
@@ -129,18 +166,54 @@
         </b-form>
         <div v-if="ingredientResults.length > 0">
           <h3>Search Results:</h3>
-          <div
-            v-for="ingredient in ingredientResults"
-            :key="ingredient.id"
-            class="ingredient-card"
-          >
-            <b-card
-              :title="ingredient.name"
-              @click="selectIngredient(ingredient)"
-            >
-              <!-- Display additional information about the ingredient if needed -->
-            </b-card>
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Units</th>
+                <th>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="ingredient in ingredientResults" :key="ingredient.id">
+                <td>
+                  <img
+                    :src="getImageSrc(ingredient.image)"
+                    :alt="ingredient.name"
+                    width="50"
+                    height="50"
+                  />
+                </td>
+                <td>{{ ingredient.name }}</td>
+                <td>
+                  <b-form-input
+                    v-model="ingredient.amountToAdd"
+                    type="number"
+                    min="1"
+                    required
+                  ></b-form-input>
+                </td>
+                <td>
+                  <b-form-select
+                    v-model="ingredient.unitToAdd"
+                    :options="unitOfMeasureOptions"
+                    required
+                  ></b-form-select>
+                </td>
+                <td>
+                  <b-button
+                    variant="primary"
+                    @click="addIngredient(ingredient)"
+                    type="submit"
+                    :disabled="!ingredient.amountToAdd || !ingredient.unitToAdd"
+                    >Add</b-button
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div v-else>
           <p>No results found.</p>
@@ -197,6 +270,18 @@ export default {
       searchString: "",
       ingredientResults: [],
       newInstruction: "",
+      UserSelectIngredient: null,
+      prefix: "https://spoonacular.com/cdn/ingredients_100x100/",
+      unitOfMeasureOptions: [
+        { value: "g", text: "g" },
+        { value: "kg", text: "kg" },
+        { value: "ml", text: "ml" },
+        { value: "l", text: "l" },
+        { value: "tsp", text: "tsp" },
+        { value: "tbsp", text: "tbsp" },
+        { value: "cup", text: "cup" },
+        { value: "piece", text: "piece" },
+      ],
     };
   },
   methods: {
@@ -215,9 +300,9 @@ export default {
           title: this.newRecipe.title,
           image: this.newRecipe.imageURL,
           readyInMinutes: this.newRecipe.readyInMinutes,
-          vegiterian: this.newRecipe.vegetarian,
+          vegetarian: this.newRecipe.vegetarian,
           vegan: this.newRecipe.vegan,
-          glutenfree: this.newRecipe.glutenFree,
+          glutenFree: this.newRecipe.glutenFree,
         };
         let instructions = this.newRecipe.instructions.map((instruction) => {
           return {
@@ -255,6 +340,7 @@ export default {
             "Recipe created successfuly",
             "success"
           );
+          this.recipes.push(recipe);
         }
       } catch (error) {
         console.log(error);
@@ -282,24 +368,55 @@ export default {
       // Populate this.ingredientResults with the search results
       // You can use an API call or any other method to get the results
       try {
+        console.log("this.searchString", this.searchString);
         let response = await this.$store.dispatch("getIngredients", {
           query: this.searchString,
         });
-        this.ingredientResults = response.data;
+        console.log("response", response);
+        if (response.status != 200) {
+          this.ingredientResults = [];
+        } else {
+          this.ingredientResults = response.data;
+        }
       } catch (error) {
         console.log(error);
         this.ingredientResults = [];
       }
     },
-    selectIngredient(ingredient) {
-      this.newRecipe.ingredients.push(ingredient);
+    addIngredient(ingredient) {
+      // Check if the ingredient is already in the list
+      const existingIngredient = this.newRecipe.ingredients.find(
+        (e) => e.id === ingredient.id
+      );
+      if (existingIngredient) {
+        // Ingredient already exists, update the amount and unit
+        existingIngredient.amount =
+          parseInt(existingIngredient.amount) +
+          parseInt(ingredient.amountToAdd);
+        existingIngredient.unit = ingredient.unitToAdd;
+      } else {
+        // Ingredient is new, add it to the list
+        ingredient.amount = parseInt(ingredient.amountToAdd);
+        ingredient.unit = ingredient.unitToAdd;
+        this.newRecipe.ingredients.push(ingredient);
+      }
+
+      // Close the modal
       this.showAddIngredientsModal = false;
     },
+
     openAddInstructionsModal() {
       this.showAddInstructionsModal = true;
     },
+    addInstructions() {
+      // Add the new instruction to this.newRecipe.instructions array
+      // and close the modal if needed
+      this.newRecipe.instructions.push(this.newInstruction);
+      this.newInstruction = "";
+      this.showAddInstructionsModal = false;
+    },
     addInstruction() {
-      if (this.newInstruction) {
+      if (this.newInstruction !== "") {
         this.newRecipe.instructions.push(this.newInstruction);
         this.newInstruction = "";
       }
@@ -307,25 +424,22 @@ export default {
     deleteInstruction(index) {
       this.newRecipe.instructions.splice(index, 1);
     },
-    addInstructions() {
-      // Perform the logic to add the instructions from this.newInstruction
-      // to this.newRecipe.instructions
-      this.newInstruction = "";
-      this.showAddInstructionsModal = false;
+    deleteIngredient(index) {
+      this.newRecipe.ingredients.splice(index, 1);
+    },
+    getImageSrc(image) {
+      return this.prefix + image;
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 20px;
 }
 
 .title {
-  margin-top: 30px;
-  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -335,12 +449,65 @@ export default {
 
 .instruction-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.modal-footer {
-  justify-content: flex-start;
+.instruction-item p {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.ingredient-card {
+  margin-bottom: 20px;
+}
+
+.table_responsive {
+  max-width: 900px;
+  border: 1px solid #00bcd4;
+  background-color: #efefef33;
+  padding: 15px;
+  overflow: auto;
+  margin: auto;
+  border-radius: 4px;
+}
+table {
+  width: 100%;
+  font-size: 13px;
+  color: #444;
+  white-space: nowrap;
+  border-collapse: collapse;
+}
+table > thead {
+  background-color: #00bcd4;
+  color: #fff;
+}
+table > thead th {
+  padding: 15px;
+}
+table th,
+table td {
+  border: 1px solid #00000017;
+  padding: 10px 15px;
+}
+table > tbody > tr > td > img {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 6px #0003;
+}
+
+table > tbody > tr {
+  background-color: #fff;
+  transition: 0.3s ease-in-out;
+}
+table > tbody > tr:nth-child(even) {
+  background-color: rgb(238, 238, 238);
+}
+table > tbody > tr:hover {
+  filter: drop-shadow(0px 2px 6px #0002);
 }
 </style>

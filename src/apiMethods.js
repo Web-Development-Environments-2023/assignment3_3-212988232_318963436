@@ -161,11 +161,10 @@ const myRecipes = async () => {
     const res = await axios.get(`${server_domain}/users/myRecipes`, {
       withCredentials: true,
     });
-    console.log("API mathodes", res);
+
     return res.data;
   } catch (err) {
     console.log(err);
-    console.log("API mathodes", res);
     return { status: 401, message: "Something goes wrong" };
   }
 };
@@ -184,15 +183,15 @@ const getRecipe = async (recipeId) => {
     return { status: 401, message: "Something goes wrong" };
   }
 };
-const getIngerdients = async (query) => {
+const getIngredients = async (query) => {
   try {
-    const res = await axios.get(`${server_domain}/users/ingredients`, {
+    const res = await axios.get(`${server_domain}/users/Ingerdients`, {
       params: {
         name: query,
       },
       withCredentials: true,
     });
-    return res.data;
+    return res;
   } catch (err) {
     console.log(err);
   }
@@ -222,7 +221,7 @@ const user = {
   search: search,
   myRecipes: myRecipes,
   getRecipe: getRecipe,
-  getIngerdients: getIngerdients,
+  getIngredients: getIngredients,
   addRecipe: addRecipe,
 };
 

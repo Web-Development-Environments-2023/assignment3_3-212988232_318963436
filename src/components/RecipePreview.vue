@@ -68,30 +68,6 @@
         />
       </li>
     </ul>
-    <!-- <table class="card-text">
-  <tr>
-    <td style="width: 100px; height: 50px;">
-      <img src="../assets/clock.png" height="25px" width="25px"> {{ this.readyInMinutes }}      
-    </td>
-    <td style="width: 100px; height: 50px;">
-      <img src="../assets/like.png" height="25px" width="25px"> {{ this.popularity }}
-    </td>
-    <td style="width: 100px; height: 50px;">
-      <img src="../assets/servings.png" height="25px" width="25px"> {{ this.servings }}
-    </td>
-  </tr>
-  <tr>
-    <td v-if="this.vegan" style="width: 100px; height: 50px;">
-      <img src="../assets/vegan.png" height="50px" width="50px">
-    </td>
-    <td v-if="this.vegetarian" style="width: 100px; height: 50px;">
-      <img src="../assets/vegetarian.png" height="50px"  width="50px">
-    </td>
-    <td v-if="this.glutenFree" style="width: 100px; height: 50px;">
-      <img  src="../assets/glutenfree.png" height="50px" width="50px">
-    </td>
-  </tr>
-</table> -->
   </div>
 </template>
 
@@ -235,8 +211,5 @@ li a {
   text-align: center;
   padding: 16px;
   text-decoration: none;
-}
-
-li a:hover {
 }
 </style>

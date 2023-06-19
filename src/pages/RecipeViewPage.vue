@@ -69,32 +69,6 @@
           </tr>
         </table>
 
-        <!-- <b-container>
-          <div class="card-group">
-            <div
-              v-for="ingredient in this.ingredients"
-              :key="ingredient.id"
-              class="card"
-              width="7rem"
-              height="7rem"
-            >
-             
-              <div class="card-body">
-                <h5 class="card-title">{{ ingredient.name }}</h5>
-                <p class="card-text">
-                  <br />
-                  amount : {{ ingredient.amount.us.value }} <br />
-                  units : {{ ingredient.amount.us.unit }}
-                </p>
-                <p class="card-text">
-                  <small class="text-body-secondary"
-                    >Last updated 3 mins ago</small
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </b-container> -->
         <h5>instructions</h5>
         <ol>
           <li v-for="instruction in this.instructions" :key="instruction.id">
@@ -128,12 +102,9 @@ export default {
   async created() {
     try {
       let recipeId = parseInt(this.$route.params.recipeId);
-
-      console.log("this.recipeId", recipeId);
-      let response;
-
-      response = await this.$store.dispatch("recipe", { recipeId: recipeId });
-      console.log("response", response);
+      let response = await this.$store.dispatch("recipe", {
+        recipeId: recipeId,
+      });
       if (!response.id === recipeId) {
         this.$router.replace("/NotFound");
         return;
@@ -147,6 +118,10 @@ export default {
         vegetarian,
         glutenFree,
         servings,
+        favorite,
+        seen,
+        instructions,
+        ingredients,
       } = response; // Use destructuring to assign response properties
 
       // Assign the values to component data properties
@@ -360,7 +335,5 @@ li a {
 }
 .card-body {
   font-size: 1.25rem;
-}
-li a:hover {
 }
 </style>

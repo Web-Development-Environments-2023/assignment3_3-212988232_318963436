@@ -151,7 +151,7 @@ const store = new Vuex.Store({
         console.log(err);
       }
     },
-    async getIngerdients({ commit }, { query }) {
+    async getIngredients({ commit }, { query }) {
       try {
         const res = await user.getIngredients(query);
         return res;

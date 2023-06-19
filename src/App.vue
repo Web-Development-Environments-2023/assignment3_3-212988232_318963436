@@ -4,34 +4,54 @@
       <li v-if="!$store.state.username">
         Hello Guest
       </li>
-      <li v-if="$store.state.username">
-        Hello {{ $store.state.username }}
+      <li v-if="$store.state.username">Hello {{ $store.state.username }}</li>
+      <li>
+        <router-link :to="{ name: 'main' }" style="color:white;"
+          >Vue Recipes</router-link
+        >
       </li>
       <li>
-        <router-link :to="{ name: 'main' }" style="color:white;">Vue Recipes</router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'search' }" style="color:white;">Search</router-link>
-      </li>
-      <li v-if="!$store.state.username">
-        <router-link :to="{ name: 'register' }" style="color:white;">Register</router-link>
+        <router-link :to="{ name: 'search' }" style="color:white;"
+          >Search</router-link
+        >
       </li>
       <li v-if="!$store.state.username">
-        <router-link :to="{ name: 'login' }" style="color:white;">Login</router-link>
+        <router-link :to="{ name: 'register' }" style="color:white;"
+          >Register</router-link
+        >
+      </li>
+      <li v-if="!$store.state.username">
+        <router-link :to="{ name: 'login' }" style="color:white;"
+          >Login</router-link
+        >
       </li>
       <li v-if="$store.state.username" class="dropdown">
         <span style="color: white;">Personal</span>
         <ul class="dropdown-content">
           <li>
-            <router-link :to="{ name: 'favorite' }" style="color:white;">Favorite</router-link>
+            <router-link :to="{ name: 'favorite' }" style="color:white;"
+              >Favorite</router-link
+            >
           </li>
           <li>
-            <router-link :to="{ name: 'myRecipes' }" style="color:white;">My Recipes</router-link>
+            <router-link :to="{ name: 'myRecipes' }" style="color:white;"
+              >My Recipes</router-link
+            >
+          </li>
+          <li>
+            <router-link :to="{ name: 'family' }" style="color:white;"
+              >Family</router-link
+            >
           </li>
         </ul>
       </li>
       <li v-if="$store.state.username">
-        <button @click="Logout" style="color:white; background-color:transparent; border:none; cursor:pointer; font-family: sans-serif; font-weight: bold;">Logout</button>
+        <button
+          @click="Logout"
+          style="color:white; background-color:transparent; border:none; cursor:pointer; font-family: sans-serif; font-weight: bold;"
+        >
+          Logout
+        </button>
       </li>
     </div>
     <router-view />
@@ -66,8 +86,11 @@ export default {
 
 body {
   background: url(https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1776&q=80);
+  background-size: cover;
+  background-position: center;
   height: 100vh;
   display: flex;
+  background-repeat: repeat-y;
 
   margin: 0;
 }
