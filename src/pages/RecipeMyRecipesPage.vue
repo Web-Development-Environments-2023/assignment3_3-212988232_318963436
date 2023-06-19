@@ -431,6 +431,8 @@ export default {
       return this.prefix + image;
     },
   },
+ 
+
 };
 </script>
 
