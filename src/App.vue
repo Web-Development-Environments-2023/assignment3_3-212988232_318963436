@@ -1,75 +1,88 @@
 <template>
-  <div id="app">
-    <div class="menu-bar" id="nav">
-      <li v-if="!$store.state.username">
-        Hello Guest
-      </li>
-      <li v-if="$store.state.username">Hello {{ $store.state.username }}</li>
-      <li>
-        <router-link :to="{ name: 'main' }" style="color:white;"
-          >Vue Recipes</router-link
-        >
-      </li>
-      <li>
-        <router-link :to="{ name: 'search' }" style="color:white;"
+
+  <div id="app" style="width: 100%;  
+  justify-content: center; dispaly: flex;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <p class="navbar-brand" v-if="!$store.state.username" style="border-right: 5px solid rgb(0, 0, 0); padding-right: 10px;" > Hello Guest  </p>
+    <p class="navbar-brand" v-if="$store.state.username"  style="border-right: 5px solid rgb(0, 0, 0); padding-right: 10px;"> Hello {{ $store.state.username }}  </p>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="width: 100%;">
+        <li class="nav-item">
+          <router-link :to="{ name: 'main' }" class="nav-link active">Home</router-link>
+
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'search' }" class="nav-link active"
           >Search</router-link
-        >
-      </li>
-      <li v-if="!$store.state.username">
-        <router-link :to="{ name: 'register' }" style="color:white;"
-          >Register</router-link
-        >
-      </li>
-      <li v-if="!$store.state.username">
-        <router-link :to="{ name: 'login' }" style="color:white;"
-          >Login</router-link
-        >
-      </li>
-      <li v-if="$store.state.username" class="dropdown">
-        <span style="color: white;">Personal</span>
-        <ul class="dropdown-content">
-          <li>
-            <router-link :to="{ name: 'favorite' }" style="color:white;"
-              >Favorite</router-link
-            >
-          </li>
-          <li>
-            <router-link :to="{ name: 'myRecipes' }" style="color:white;"
-              >My Recipes</router-link
-            >
-          </li>
-          <li>
-            <router-link :to="{ name: 'family' }" style="color:white;"
-              >Family</router-link
-            >
-          </li>
-        </ul>
-      </li>
-      <li v-if="$store.state.username">
-        <button
+        >        </li>
+      </ul>
+   <ul class="navbar-nav me-auto mb-2 mb-lg-0" id = navbarPersonal>
+    <li class="nav-item dropdown" style="align-self: right; padding-right: 30px;"  v-if="$store.state.username">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Peresonal
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li class="nav-item">
+          <router-link :to="{ name: 'myRecipes' }" class="nav-link active">My Recipes</router-link>
+
+        </li><li class="nav-item">
+          <router-link :to="{ name: 'favorite' }" class="nav-link active">Favorite</router-link>
+
+        </li><li class="nav-item">
+          <router-link :to="{ name: 'main' }" class="nav-link active">TODO</router-link>
+
+        </li>
+          </ul>
+        </li>
+        <li class="nav-item" v-if="$store.state.username" style="padding-right: 50px;">
+        <a class="nav-link active"
           @click="Logout"
-          style="color:white; background-color:transparent; border:none; cursor:pointer; font-family: sans-serif; font-weight: bold;"
         >
           Logout
-        </button>
+        </a>
       </li>
+
+      <li class="nav-item" v-if="!$store.state.username ">
+        <router-link :to="{ name: 'login' }"
+        class="nav-link active" style="padding-right: 20px;">Login</router-link>
+      </li>     
+       <li class="nav-item" v-if="!$store.state.username">
+        <router-link :to="{ name: 'register' }" 
+        class="nav-link active">Register</router-link
+        >
+      </li>
+   </ul>
     </div>
-    <router-view />
+   
+  </div>
+</nav>
+<router-view />
+
   </div>
 </template>
 
 <script>
 export default {
-  name: "App",
-  methods: {
-    Logout() {
-      this.$store.dispatch("logout", {});
-      this.$root.toast("Logout", "User logged out successfully", "success");
-      this.$router.push("/").catch(() => {
-        this.$forceUpdate();
-      });
+    name: "App",
+    data() {
+        return {
+            show: false,
+        };
     },
-  },
+    methods: {
+        Logout() {
+            this.$store.dispatch("logout", {});
+            this.$root.toast("Logout", "User logged out successfully", "success");
+            this.$router.push("/").catch(() => {
+                this.$forceUpdate();
+            });
+        },
+        openCreateRecipeModalbind() {
+        console.log("openCreateRecipeModal");
+        openCreateRecipeModal();
+        },
+    },
 };
 </script>
 
@@ -95,89 +108,66 @@ body {
   margin: 0;
 }
 
-.menu-bar {
-  border-radius: 25px;
-  height: fit-content;
-  display: inline-flex;
-  background-color: rgba(0, 0, 0, 0.4);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  align-items: center;
-  margin-top: 20px;
-  margin-left: 20px;
+
+
+footer {
+	text-align: center;
 }
 
-.menu-bar li {
-  list-style: none;
-  color: white;
-  font-family: sans-serif;
-  font-weight: bold;
-  padding: 12px 16px;
-  margin: 0 8px;
-  position: relative;
-  cursor: pointer;
-  white-space: nowrap;
+.container {
+  margin-top: 160px; /* Adjust the margin value to create the desired space */
+  
 }
 
-.menu-bar li::before {
-  content: " ";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-  transition: 0.2s;
-  border-radius: 25px;
+
+    ul li ul {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+padding-left: 0;
+      left: 0;
+      display: none;
+      background: white;
+    }
+
+    ul li:hover > ul,
+    ul li ul:hover {
+      visibility: visible;
+      opacity: 1;
+      display: block;
+      min-width: 250px;
+      text-align: left;
+      padding-top: 20px;
+      box-shadow: 0px 3px 5px -1px #ccc;
+    }
+
+    ul li ul li {
+      clear: both;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 20px;
+      border-style: none;
+    }
+
+    ul li ul li a:hover {
+      padding-left: 10px;
+      border-left: 2px solid #3ca0e7;
+      transition: all 0.3s ease;
+    }
+  
+
+
+a {
+
+    text-decoration: none;
+
+    &:hover {
+        color: #3CA0E7;
+    }
+ 
 }
 
-.menu-bar li:hover::before {
-  background: linear-gradient(to bottom, #e8edec, #d2d1d3);
-  box-shadow: 0px 3px 20px 0px black;
-  transform: scale(1.2);
-}
+ ul li ul li a { transition: all 0.5s ease; }
 
-.menu-bar .name:hover::before {
-  background: none;
-  box-shadow: none;
-  transform: none;
-}
 
-.menu-bar .name:hover {
-  color: white;
-  cursor: auto;
-}
-
-.menu-bar li:hover {
-  color: black;
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  border-radius: 25px;
-  padding: 10px;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content li {
-  margin: 8px 0;
-}
-
-.dropdown-content li:hover {
-  color: black;
-}
-
-.dropdown-content li a {
-  color: white;
-}
 </style>

@@ -1,23 +1,47 @@
 <template>
   <div class="card">
     <div class="card-image">
-      <img
-        v-if="image_load"
-        :src="recipe.image"
-        class="recipe-image"
-        onerror="this.src='https://media.istockphoto.com/id/1141639313/photo/contact-us-woman-hand-holding-icon-customer-support-concept-copy-space.jpg?s=2048x2048&w=is&k=20&c=MxSuJtElp1vpswR4y-xLMdcEwSbPp4quLGtAXdu-bvQ=';"
-      />
-    </div>
-
-    <div class="card-text">
-      <div height="50px">
-        <router-link
+      <router-link
           v-if="!UserRecipe"
           :to="{ name: 'recipe', params: { recipeId: this.id } }"
           type="button"
         >
-          <h2 class="card-title">{{ this.title }}</h2>
-        </router-link>
+        <img
+        v-if="image_load"
+        :src="recipe.image"
+        class="card__img"
+        onerror="this.src='https://media.istockphoto.com/id/1141639313/photo/contact-us-woman-hand-holding-icon-customer-support-concept-copy-space.jpg?s=2048x2048&w=is&k=20&c=MxSuJtElp1vpswR4y-xLMdcEwSbPp4quLGtAXdu-bvQ=';"
+      />
+      </router-link>
+
+      <ul style="  margin-right: 10px;" class="image-icons" >
+        <li v-if="this.vegan">
+          <img src="../assets/vegan.png" height="50px" width="50px" />
+        </li>
+        <li v-if="this.vegetarian">
+          <img
+            src="../assets/vegetarian.png"
+            height="50px"
+            width="50px"
+           
+          />
+        </li>
+        <li  v-if="this.glutenFree">
+          <img
+            src="../assets/glutenfree.png"
+            height="50px"
+            width="50px"
+          
+          />
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-text">
+      <div height="50px">
+
+          <h2 class="card-title" style="color:white;">{{ this.title }}</h2>
+        
         <router-link
           v-if="UserRecipe"
           :to="{ name: 'recipeUser', params: { recipeId: this.id } }"
@@ -28,49 +52,39 @@
       </div>
     </div>
 
-    <ul class="card-text">
-      <li>
+    <ul  style="  position: absolute;
+        bottom: 0; ">
+        <li>
+          <img   
+            :id="'favorite' + this.id"
+            type="button"
+            value="favorite"
+            @click="setFavorite(id, true)"
+          src="../assets/unfavorite.png"
+          />
+          <img
+          :id="'unfavorite' + this.id"
+            type="button"
+            value="unfavorite"
+            @click="setFavorite(id, false)"
+          src="../assets/favorite.png"
+          />
+        </li>
+      <li style="color:white; padding-right: 30px;">
         <img src="../assets/clock.png" height="25px" width="25px" />
         {{ this.readyInMinutes }}
       </li>
-      <li>
+      <li style="color:white;  padding-right: 30px;">
         <img src="../assets/like.png" height="25px" width="25px" />
         {{ this.popularity }}
       </li>
-      <li>
+      <li style="color:white;">
         <img src="../assets/servings.png" height="25px" width="25px" />
         {{ this.servings }}
       </li>
     </ul>
-    <ul>
-      <li>
-        <img
-          src="../assets/vegan.png"
-          height="50px"
-          width="50px"
-          v-if="this.vegan"
-        />
-      </li>
-      <li>
-        <img
-          src="../assets/vegetarian.png"
-          height="50px"
-          width="50px"
-          v-if="this.vegetarian"
-        />
-      </li>
-      <li>
-        <img
-          src="../assets/glutenfree.png"
-          height="50px"
-          width="50px"
-          v-if="this.glutenFree"
-        />
-      </li>
-    </ul>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -100,7 +114,53 @@ export default {
       default: false,
     },
   },
+
+  methods: {
+    async setFavorite(recipeId, isFav) {
+      console.log("recipeId", recipeId);
+      console.log("isFav", isFav);
+      try {
+        let response = await this.$store.dispatch("setFavorite", {
+          recipeId: recipeId,
+          isFav: isFav
+        });
+
+        console.log("response", response);
+
+        if (response.status === 200) {
+          console.log("response.data", response.data);
+          this.favorite = !this.favorite;
+          console.log("response.data", response.data);
+          console.log("this", this);
+          await this.changeBTN(recipeId);
+        }
+      } catch (error) {
+        console.log("error.response.status", error.response.status);
+        this.$router.replace("/NotFound");
+        return;
+      }
+    },
+    async changeBTN(recipeId) {
+      if (this.$store.state.username) {
+        if (this.favorite) {
+          document.getElementById("favorite"+recipeId).style.display = "none";
+          document.getElementById("unfavorite"+recipeId).style.display = "block";
+        } else {
+          document.getElementById("favorite"+recipeId).style.display = "block";
+          document.getElementById("unfavorite"+recipeId).style.display = "none";
+        }
+      } else {
+        document.getElementById("favorite"+recipeId).style.display = "none";
+        document.getElementById("unfavorite"+recipeId).style.display = "none";
+      }
+    },
+  },
+  mounted() {
+    this.changeBTN(this.id);
+  },
+
 };
+
 </script>
 
 <style scoped>
@@ -137,54 +197,52 @@ body {
   padding: 40px 20px;
 }
 .card {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin-bottom: 60px;
-  background: transparent;
-  border: solid transparent;
-}
-.card > div {
-  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: calc(33.33% - 20px); /* Adjust the width as per your requirements */
+  margin: 10px;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  background-color: rgb(21, 18, 18);
+  padding-bottom: 30px;
 }
 
-.card-image > img {
+.card-image {
+  position: relative;
+}
+
+.card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: bottom;
+  transform: scale(calc(1 + (var(--hover, 0) * 0.25))) rotate(calc(var(--hover, 0) * -5deg));
+  transition: transform 0.2s;
 }
-.card-text {
-  margin: -30px auto;
-  margin-bottom: -50px;
-  height: 300px;
-  width: 300px;
-  background-color: #38363d;
-  color: #fff;
-  padding: 20px;
-}
-.card-meal-type {
-  font-style: italic;
-}
-.card-title {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
-  margin-top: 5px;
-}
-.card-body {
-  font-size: 1.25rem;
-}
-.card-price {
-  width: 100px;
-  height: 100px;
-  background-color: #970c0a;
-  color: #fff;
-  margin-left: auto;
-  font-size: 2rem;
+
+
+.image-icons {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.image-icons li {
+  margin: 0 5px;
+}
+
+/* Adjust the height and width of the icons as per your requirements */
+.image-icons img {
+  height: 50px;
+  width: 50px;
+}
+
 #table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -211,5 +269,9 @@ li a {
   text-align: center;
   padding: 16px;
   text-decoration: none;
+}
+
+.card:is(:hover, :focus-visible) {
+  --hover: 1;
 }
 </style>
