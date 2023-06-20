@@ -121,8 +121,6 @@ export default {
     async addRecipe(recipe, isAdd) {
       try {
         // Assuming you have a method in your store to add a recipe
-        console.log("recipe from add recipe", recipe);
-        console.log(this.$route.params.id, "family id");
         const response = await this.$store.dispatch("addRecipeToFamily", {
           recipeId: recipe.id,
           familyId: this.$route.params.id,
