@@ -46,9 +46,9 @@
         class="mx-auto w-100"
         >Login</b-button
       >
-      <div class="mt-2">
+      <div class="Mytext">
         Do not have an account yet?
-        <router-link to="register"> Register in here</router-link>
+        <router-link to="register"> Register here</router-link>
       </div>
     </b-form>
     <b-alert

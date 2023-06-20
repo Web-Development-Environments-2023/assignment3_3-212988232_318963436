@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div></div>
     <div class="myTitle">
       <button
         style="margin-top: 10px;"
@@ -15,8 +14,16 @@
           {{ title }}
         </h2>
       </div>
-      <div v-else>
+      <div v-if="!isMyRecipe()">
         <h2 style="text-align: center;">
+          <img
+            @click="ReRandomRecipes"
+            src="../assets/refresh.png"
+            style="cursor: pointer;"
+            title="refresh"
+            alt="refresh"
+            v-if="isRandomfunc()"
+          />
           {{ title }}
         </h2>
       </div>
@@ -57,6 +64,8 @@
           </table>
         </b-modal>
       </div>
+    </div>
+    <div>
       <RecipePreview
         v-for="r in recipes"
         :key="r.id"
@@ -100,6 +109,12 @@ export default {
     this.updateRecipes();
   },
   methods: {
+    async ReRandomRecipes() {
+      await this.updateRecipes();
+    },
+    isRandomfunc() {
+      return this.isRandom === "random";
+    },
     async updateRecipes() {
       try {
         let response;

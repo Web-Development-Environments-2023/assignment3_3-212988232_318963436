@@ -31,7 +31,7 @@
         id="input-group-firstname"
         label="First Name:"
         label-cols-sm="3"
-      >
+      class="Mytext">
         <b-form-input
           id="firstname"
           type="text"
@@ -41,7 +41,7 @@
       <b-form-group
         id="input-group-lastname"
         label="Last Name:"
-        label-cols-sm="3"
+        label-cols-sm="3" class="Mytext"
       >
         <b-form-input
           id="lastname"
@@ -113,8 +113,8 @@
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
       </b-form-group>
-      <b-form-group id="input-group-email" label="Email:" label-cols-sm="3">
-        <b-form-input
+      <b-form-group id="input-group-email" label="Email:" label-cols-sm="3" class="Mytext">
+        <b-form-input 
           id="email"
           type="email"
           v-model="$v.form.email.$model"
@@ -133,9 +133,9 @@
         class="ml-5 w-75"
         >Register</b-button
       >
-      <div class="mt-2">
+      <div class="Mytext">
         You have an account already?
-        <router-link to="login"> Log in here</router-link>
+        <router-link to="login"> Login here</router-link>
       </div>
     </b-form>
     <b-alert

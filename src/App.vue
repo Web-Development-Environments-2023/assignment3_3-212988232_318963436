@@ -4,105 +4,110 @@
     style="width: 100%;  
   justify-content: center; dispaly: flex;"
   >
-  <div class="navbarFlow">
+    <div class="navbarFlow">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <p
+            class="navbar-brand"
+            v-if="!$store.state.username"
+            style="border-right: 5px solid rgb(0, 0, 0); padding-right: 10px;"
+          >
+            Hello Guest
+          </p>
+          <p
+            class="navbar-brand"
+            v-if="$store.state.username"
+            style="border-right: 5px solid rgb(0, 0, 0); padding-right: 10px;"
+          >
+            Hello {{ $store.state.username }}
+          </p>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="width: 100%;">
+              <li class="nav-item">
+                <router-link :to="{ name: 'main' }" class="nav-link active"
+                  >Home</router-link
+                >
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'search' }" class="nav-link active"
+                  >Search</router-link
+                >
+              </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbarPersonal">
+              <li
+                class="nav-item dropdown"
+                style="align-self: right; padding-right: 30px;"
+                v-if="$store.state.username"
+              >
+                <a
+                  class="nav-link dropdown-toggle"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Peresonal
+                </a>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <li class="nav-item">
+                    <router-link
+                      :to="{ name: 'myRecipes' }"
+                      class="nav-link active"
+                      >My Recipes</router-link
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <router-link
+                      :to="{ name: 'favorite' }"
+                      class="nav-link active"
+                      >Favorite</router-link
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <router-link
+                      :to="{ name: 'family' }"
+                      class="nav-link active"
+                      >Family</router-link
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="nav-item"
+                v-if="$store.state.username"
+                style="padding-right: 50px;"
+              >
+                <a
+                  class="nav-link active"
+                  @click="Logout"
+                  style="cursor: pointer;"
+                >
+                  Logout
+                </a>
+              </li>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <p
-          class="navbar-brand"
-          v-if="!$store.state.username"
-          style="border-right: 5px solid rgb(0, 0, 0); padding-right: 10px;"
-        >
-          Hello Guest
-        </p>
-        <p
-          class="navbar-brand"
-          v-if="$store.state.username"
-          style="border-right: 5px solid rgb(0, 0, 0); padding-right: 10px;"
-        >
-          Hello {{ $store.state.username }}
-        </p>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="width: 100%;">
-            <li class="nav-item">
-              <router-link :to="{ name: 'main' }" class="nav-link active"
-                >Home</router-link
-              >
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'search' }" class="nav-link active"
-                >Search</router-link
-              >
-            </li>
-          </ul>
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbarPersonal">
-            <li
-              class="nav-item dropdown"
-              style="align-self: right; padding-right: 30px;"
-              v-if="$store.state.username"
-            >
-              <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Peresonal
-              </a>
-              <ul
-                class="dropdown-menu"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
-                <li class="nav-item">
-                  <router-link
-                    :to="{ name: 'myRecipes' }"
-                    class="nav-link active"
-                    >My Recipes</router-link
-                  >
-                </li>
-                <li class="nav-item">
-                  <router-link
-                    :to="{ name: 'favorite' }"
-                    class="nav-link active"
-                    >Favorite</router-link
-                  >
-                </li>
-                <li class="nav-item">
-                  <router-link :to="{ name: 'family' }" class="nav-link active"
-                    >Family</router-link
-                  >
-                </li>
-              </ul>
-            </li>
-            <li
-              class="nav-item"
-              v-if="$store.state.username"
-              style="padding-right: 50px;"
-            >
-              <a class="nav-link active" @click="Logout">
-                Logout
-              </a>
-            </li>
-
-            <li class="nav-item" v-if="!$store.state.username">
-              <router-link
-                :to="{ name: 'login' }"
-                class="nav-link active"
-                style="padding-right: 20px;"
-                >Login</router-link
-              >
-            </li>
-            <li class="nav-item" v-if="!$store.state.username">
-              <router-link :to="{ name: 'register' }" class="nav-link active"
-                >Register</router-link
-              >
-            </li>
-          </ul>
+              <li class="nav-item" v-if="!$store.state.username">
+                <router-link
+                  :to="{ name: 'login' }"
+                  class="nav-link active"
+                  style="padding-right: 20px;"
+                  >Login</router-link
+                >
+              </li>
+              <li class="nav-item" v-if="!$store.state.username">
+                <router-link :to="{ name: 'register' }" class="nav-link active"
+                  >Register</router-link
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-  </div>
+      </nav>
+    </div>
     <router-view />
   </div>
 </template>
@@ -187,12 +192,12 @@ ul li ul li {
   margin-bottom: 20px;
   border-style: none;
 }
-.navbarFlow{
+.navbarFlow {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999;
+  z-index: 9998;
 }
 ul li ul li a:hover {
   padding-left: 10px;
@@ -212,42 +217,57 @@ ul li ul li a {
   transition: all 0.5s ease;
 }
 
-
-
 .myTitle h2 {
-  font-size:35px;text-align:left; line-height:1.5em; padding-bottom:45px; font-family:"Playfair Display", serif; text-transform:uppercase;letter-spacing: 2px; color:#111;
+  font-size: 35px;
+  text-align: left;
+  line-height: 1.5em;
+  padding-bottom: 45px;
+  font-family: "Playfair Display", serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #111;
 }
-
-
 
 .myTitle h1 {
-  position:relative;
-  font-size:50px;text-align:center; line-height:1.5em; padding-bottom:45px; font-family:"Playfair Display", serif; text-transform:uppercase;letter-spacing: 2px; color:#111;
+  position: relative;
+  font-size: 50px;
+  text-align: center;
+  line-height: 1.5em;
+  padding-bottom: 45px;
+  font-family: "Playfair Display", serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #111;
   margin-bottom: 30px;
 }
-
-
-
 
 .myTitle h1:before {
   position: absolute;
   left: 0;
   bottom: 20px;
   width: 60%;
-  left:50%; margin-left:-30%;
+  left: 50%;
+  margin-left: -30%;
   height: 1px;
   content: "";
-  background-color: #777; z-index: 4;
+  background-color: #777;
+  z-index: 4;
 }
 .myTitle h1:after {
-  position:absolute;
-  width:40px; height:40px; left:50%; margin-left:-20px; bottom:0px;
-  content: '\00a7'; font-size:50px; line-height:40px; color:#c50000;
-  font-weight:400; z-index: 5;
-  display:block;
-  
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  margin-left: -20px;
+  bottom: 0px;
+  content: "\00a7";
+  font-size: 50px;
+  line-height: 40px;
+  color: #c50000;
+  font-weight: 400;
+  z-index: 5;
+  display: block;
 }
-
 
 /* CSS */
 .button-74 {
@@ -299,60 +319,28 @@ ul li ul li a {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-
-
-/* CSS */
-.submitbtn {
-  background-color: #13aa52;
-  border: 1px solid #13aa52;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  outline: none;
-  outline: 0;
-  padding: 10px 25px;
-  text-align: center;
-  transform: translateY(0);
-  transition: transform 150ms, box-shadow 150ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width : 20%;
-}
-
-.submitbtn:hover {
-  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
-  transform: translateY(-2px);
-}
-
-@media (min-width: 768px) {
-  .submitbtn{
-    padding: 10px 30px;
-  }
-}
-
-.li_step{
+.li_step {
   font-size: 20px;
   font-weight: bold;
   line-height: 1.5;
-  
 }
 
 h3 {
   font-weight: bold;
 
-  font-size:40px;text-align:center; line-height:1.5em; padding-bottom:45px; font-family:"Playfair Display", serif; text-transform:uppercase;letter-spacing: 2px; color:#111;
+  font-size: 40px;
+  text-align: center;
+  line-height: 1.5em;
+  padding-bottom: 45px;
+  font-family: "Playfair Display", serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #111;
 }
 
 .card-image {
   position: relative;
 }
-
 
 .image-icons {
   position: absolute;
@@ -377,4 +365,20 @@ h3 {
   width: 50px;
 }
 
+label,
+text {
+  font-size: 16px;
+  font-weight: bold;
+  cursor: text;
+  line-height: 1.5;
+}
+
+.Mytext {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+}
+.toast {
+  z-index: 9999; /* Adjust the value as needed */
+}
 </style>
