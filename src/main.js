@@ -105,9 +105,12 @@ new Vue({
         variant: variant,
         solid: true,
         appendToast: append,
-        autoHideDelay: 3000,
+        autoHideDelay: 9000,
+        toasterClasses: 'Mytoast'
       });
     },
   },
   render: (h) => h(App),
 }).$mount("#app");
+
+
