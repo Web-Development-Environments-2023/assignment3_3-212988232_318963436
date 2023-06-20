@@ -324,6 +324,20 @@ const addRecipeToFamily = async (family_id, recipe_id, about, isAdd) => {
     console.log(err);
   }
 };
+const getFamilyFullDetailsRecipe = async (recipe_id, family_id) => {
+  try {
+    const res = await axios.get(`${server_domain}/users/family/recipe`, {
+      params: {
+        family_id: family_id,
+        id: recipe_id,
+      },
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const family = {
   myFamilies: myFamilies,
@@ -333,6 +347,7 @@ const family = {
   searchFamily: searchFamily,
   getFamilyMembers: getFamilyMembers,
   addRecipeToFamily: addRecipeToFamily,
+  getFamilyFullDetailsRecipe: getFamilyFullDetailsRecipe,
 };
 
 ///////////////////////////////////////////Export///////////////////////////////////////////

@@ -11,7 +11,10 @@
     <div class="card-text">
       <div height="50px">
         <router-link
-          :to="{ name: 'recipeUser', params: { recipeId: recipe.id } }"
+          :to="{
+            name: 'recipeUser',
+            params: { recipeId: recipe.id, familyId: recipe.family_id },
+          }"
           type="button"
         >
           <h2 class="card-title">{{ recipe.title }}</h2>
@@ -60,6 +63,7 @@
         <p>Created by: {{ recipe.firstname }} {{ recipe.lastname }}</p>
         <p>Created at: {{ recipe.recipe_date }}</p>
         <p>About : {{ recipe.data }}</p>
+        <p>family :{{ recipe.family_id }}</p>
       </div>
     </div>
   </div>

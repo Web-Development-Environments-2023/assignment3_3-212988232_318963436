@@ -330,9 +330,8 @@ export default {
             servings: this.newRecipe.servings,
           },
         };
-        console.log("this final recipe", recipe);
+
         let response = await this.$store.dispatch("addRecipe", recipe);
-        console.log("response", response);
         if (response.status == 200) {
           this.resetForm();
           this.$root.toast(

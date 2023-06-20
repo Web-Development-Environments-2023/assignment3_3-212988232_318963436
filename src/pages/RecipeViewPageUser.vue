@@ -71,11 +71,19 @@ export default {
   async created() {
     try {
       let recipeId = parseInt(this.$route.params.recipeId);
+      let familyId = parseInt(this.$route.params.familyId);
 
       let response;
-      response = await this.$store.dispatch("getRecipe", {
-        recipeId: recipeId,
-      });
+      if (familyId) {
+        response = await this.$store.dispatch("getFamilyFullDetailsRecipe", {
+          recipeId: recipeId,
+          familyId: familyId,
+        });
+      } else {
+        response = await this.$store.dispatch("getRecipe", {
+          recipeId: recipeId,
+        });
+      }
 
       let recipe = response.recipe;
 

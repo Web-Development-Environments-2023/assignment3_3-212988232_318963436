@@ -232,6 +232,14 @@ const store = new Vuex.Store({
         console.log(err);
       }
     },
+    async getFamilyFullDetailsRecipe({ commit }, { recipeId, familyId }) {
+      try {
+        const res = await family.getFamilyFullDetailsRecipe(recipeId, familyId);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 
   getters: {
