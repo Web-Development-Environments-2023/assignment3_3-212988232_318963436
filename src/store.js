@@ -168,6 +168,16 @@ const store = new Vuex.Store({
         console.log(err);
       }
     },
+
+    async deleteRecipe({ commit }, { recipeId }) {
+      try {
+        const res = await user.deleteRecipe(recipeId);
+        return res;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     async myFamilies({ commit }) {
       try {
         const res = await family.myFamilies();

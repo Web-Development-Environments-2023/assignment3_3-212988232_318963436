@@ -1,11 +1,10 @@
 <template>
   <div class="container">
-    
     <div class="myTitle">
-
       <h1>My Recipes</h1>
-      <button @click="openCreateRecipeModal" class="button-74">Create Recipe</button>
-
+      <button @click="openCreateRecipeModal" class="button-74">
+        Create Recipe
+      </button>
     </div>
     <RecipePreviewList
       title="Personal recipes"
@@ -138,21 +137,22 @@
               </div>
             </div>
           </div>
-          <div >
-          <b-button variant="primary" @click="openAddIngredientsModal"
-            style="margin-right: 10px">Add Ingredients</b-button
-          >
-          <b-button variant="primary" @click="openAddInstructionsModal"
-            >Add Instructions</b-button
-          >
-        </div>
-          <div class="modal-footer">
-            <b-button type="submit" variant="success" >Create Recipe</b-button>
-          <b-button type="reset" variant="danger">Reset</b-button>
+          <div>
+            <b-button
+              variant="primary"
+              @click="openAddIngredientsModal"
+              style="margin-right: 10px"
+              >Add Ingredients</b-button
+            >
+            <b-button variant="primary" @click="openAddInstructionsModal"
+              >Add Instructions</b-button
+            >
           </div>
-          
+          <div class="modal-footer">
+            <b-button type="submit" variant="success">Create Recipe</b-button>
+            <b-button type="reset" variant="danger">Reset</b-button>
+          </div>
         </b-form>
-
       </b-modal>
       <b-modal
         v-model="showAddIngredientsModal"
@@ -229,8 +229,12 @@
           <p>No results found.</p>
         </div>
       </b-modal>
-      <b-modal v-model="showAddInstructionsModal" title="Add Instructions" hide-footer>
-        <b-form @submit.prevent="addInstructions" >
+      <b-modal
+        v-model="showAddInstructionsModal"
+        title="Add Instructions"
+        hide-footer
+      >
+        <b-form @submit.prevent="addInstructions">
           <b-form-group
             label="Instructions"
             label-for="instructions"
@@ -242,12 +246,14 @@
               type="text"
               required
             ></b-form-textarea>
-          </b-form-group><div class="modal-footer">
-          <b-button @click="addInstruction"  variant="success">Add</b-button></div>
+          </b-form-group>
+          <div class="modal-footer">
+            <b-button @click="addInstruction" variant="success">Add</b-button>
+          </div>
         </b-form>
       </b-modal>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -260,10 +266,10 @@ export default {
   data() {
     return {
       username: this.$store.state.username,
-      recipes: [],
       showCreateRecipeModal: false,
       showAddIngredientsModal: false,
       showAddInstructionsModal: false,
+
       newRecipe: {
         title: "",
         imageURL: "",
@@ -347,12 +353,15 @@ export default {
             "Recipe created successfuly",
             "success"
           );
-          this.$refs.recipePreviewList.updateRecipes();
+          await this.updateRecipes();
         }
       } catch (error) {
         console.log(error);
         this.$root.toast("Create Recipe", "Recipe created failed", "danger");
       }
+    },
+    async updateRecipes() {
+      await this.$refs.recipePreviewList.updateRecipes();
     },
     resetForm() {
       this.newRecipe = {
@@ -367,9 +376,7 @@ export default {
         ingredients: [],
       };
     },
-    openAddIngredientsModal() {
-      this.showAddIngredientsModal = true;
-    },
+
     async searchIngredients() {
       // Perform the logic to search for ingredients based on this.searchString
       // Populate this.ingredientResults with the search results
@@ -410,6 +417,9 @@ export default {
 
       // Close the modal
       this.showAddIngredientsModal = false;
+    },
+    openAddIngredientsModal() {
+      this.showAddIngredientsModal = true;
     },
 
     openAddInstructionsModal() {

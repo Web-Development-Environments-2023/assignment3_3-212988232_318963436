@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="myTitle">
-      <h1>Search Page</h1>
+      <h1>Search</h1>
     </div>
     <b-form @submit.prevent="search" @reset.prevent="onReset">
       <b-form-group

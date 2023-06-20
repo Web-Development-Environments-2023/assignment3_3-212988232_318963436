@@ -211,6 +211,20 @@ const addRecipe = async (recipe) => {
   }
 };
 
+const deleteRecipe = async (recipeId) => {
+  try {
+    const res = await axios.delete(`${server_domain}/users/recipe`, {
+      params: {
+        recipeId: recipeId,
+      },
+      withCredentials: true,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const user = {
   randomRecipes: randomRecipes,
   favoriteRecipes: favoriteRecipes,
@@ -223,6 +237,7 @@ const user = {
   getRecipe: getRecipe,
   getIngredients: getIngredients,
   addRecipe: addRecipe,
+  deleteRecipe: deleteRecipe,
 };
 ///////////////////////////////////////////Family///////////////////////////////////////////
 

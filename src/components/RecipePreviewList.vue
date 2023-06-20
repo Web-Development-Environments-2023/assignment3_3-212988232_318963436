@@ -1,23 +1,71 @@
 <template>
-   
-
-    <div >
-       <div class="myTitle">
-    <h2 style="text-align: center;">
-      {{ title }}
-    </h2>
-  </div>
-<div>
-        <RecipePreview
+  <div>
+    <div></div>
+    <div class="myTitle">
+      <button
+        style="margin-top: 10px;"
+        v-if="recipes.length > 0 && isMyRecipe()"
+        @click="openDeleteRecipeModal"
+        class="button-74"
+      >
+        Delete Recipe
+      </button>
+      <div style="margin-top: -60px;" v-if="isMyRecipe()">
+        <h2 style="text-align: center;">
+          {{ title }}
+        </h2>
+      </div>
+      <div v-else>
+        <h2 style="text-align: center;">
+          {{ title }}
+        </h2>
+      </div>
+    </div>
+    <div>
+      <div v-if="isMyRecipe()">
+        <b-modal
+          id="DeleteRecipe"
+          v-model="showDeleteRecipeModal"
+          title="Delete Recipe"
+          hide-footer
+          class="Modal"
+        >
+          <table class="table">
+            <thead>
+              <tr>
+                <th>image</th>
+                <th>Name</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="recipe in recipes" :key="recipe.id">
+                <td>
+                  <img :src="recipe.image" width="50" height="50" />
+                </td>
+                <td>{{ recipe.title }}</td>
+                <td>
+                  <b-button
+                    variant="danger"
+                    @click="ReamoveRecipe(recipe)"
+                    type="submit"
+                    >Remove</b-button
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </b-modal>
+      </div>
+      <RecipePreview
         v-for="r in recipes"
         :key="r.id"
         class="recipePreview"
         :recipe="r"
         :UserRecipe="UserRecipe"
       />
-</div>
-
     </div>
+  </div>
 </template>
 
 <script>
@@ -41,6 +89,7 @@ export default {
     return {
       recipes: [],
       UserRecipe: false,
+      showDeleteRecipeModal: false,
     };
   },
   mounted() {
@@ -78,6 +127,36 @@ export default {
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    isMyRecipe() {
+      if (this.isRandom === "MyRecipes") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    openDeleteRecipeModal() {
+      this.showDeleteRecipeModal = true;
+    },
+    async ReamoveRecipe(recipe) {
+      try {
+        let response = await this.$store.dispatch("deleteRecipe", {
+          recipeId: recipe.id,
+        });
+        if (response.status == 200) {
+          this.$root.toast(
+            "Delete Recipe",
+            "Recipe deleted successfuly",
+            "success"
+          );
+          this.showDeleteRecipeModal = false;
+          await this.updateRecipes();
+        }
+      } catch (error) {
+        console.log(error);
+        this.$root.toast("Delete Recipe", "Recipe deleted failed", "danger");
       }
     },
   },
