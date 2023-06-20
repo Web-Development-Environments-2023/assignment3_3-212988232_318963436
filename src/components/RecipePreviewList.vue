@@ -15,7 +15,7 @@
         </h2>
       </div>
       <div v-if="!isMyRecipe()">
-        <h2 style="text-align: center;">
+        <h2 style="text-align: center;" v-if="this.isRandom!=='favorites'">
           <img
             @click="ReRandomRecipes"
             src="../assets/refresh.png"
@@ -25,6 +25,12 @@
             v-if="isRandomfunc()"
           />
           {{ title }}
+        </h2>
+        <h2 style="text-align: center;" v-if="this.isRandom==='favorites' && this.recipes.length>0">
+          {{ title }}
+        </h2>
+        <h2 style="text-align: center;" v-if="this.isRandom==='favorites' && this.recipes.length===0">
+          You don't have any favorite recipes
         </h2>
       </div>
     </div>
