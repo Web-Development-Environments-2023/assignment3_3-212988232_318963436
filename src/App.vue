@@ -345,6 +345,7 @@ h3 {
 
 .card-image {
   position: relative;
+  
 }
 
 .image-icons {
