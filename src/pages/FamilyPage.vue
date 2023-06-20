@@ -97,6 +97,15 @@
                 {{ family.family.name }}
               </router-link>
             </td>
+            <td>
+              <button
+                @click="addFamily(family.family, false)"
+                class="button-74"
+                style="margin-left: 15px;"
+              >
+                Leave
+              </button>
+            </td>
           </tr>
           <tr v-if="family.showMembers">
             <td colspan="2">
@@ -181,6 +190,12 @@ export default {
           this.$root.toast(
             "Search Family",
             "successfully to the family",
+            "success"
+          );
+        } else if (response.status === 201) {
+          this.$root.toast(
+            "Exit Family",
+            "successfully exit the family",
             "success"
           );
         } else {
