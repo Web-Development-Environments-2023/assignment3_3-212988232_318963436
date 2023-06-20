@@ -19,14 +19,17 @@
       </button>
     </div>
 
-    <b-modal v-model="showSearchModal" title="Search Family">
+    <b-modal v-model="showSearchModal" title="Search Family" hide-footer class="Modal">
       <div>
         <input
           type="text"
           v-model="searchQuery"
           placeholder="Enter family name"
         />
-        <button @click="searchFamily" class="button-74">Search</button>
+        <div class="modal-footer">
+          <b-button @click="searchFamily" variant="success">Search</b-button>
+
+          </div>
 
         <table v-if="searchResults.length > 0" class="search-results-table">
           <thead>
@@ -52,7 +55,13 @@
       </div>
     </b-modal>
 
-    <b-modal v-model="showCreateModal" title="Create Family">
+      <b-modal
+        v-model="showCreateModal"
+        size="lg"
+        title="Create Family"
+        hide-footer
+        class="Modal"
+      >
       <form @submit.prevent="createFamily">
         <label for="familyLastName">Family Name:</label>
         <input
@@ -62,7 +71,10 @@
           placeholder="Enter Family Name"
           required
         />
-        <button type="submit">Create</button>
+
+        <div class="modal-footer">
+          <b-button type="submit"  variant="success">Create</b-button>
+          </div>
       </form>
     </b-modal>
 
