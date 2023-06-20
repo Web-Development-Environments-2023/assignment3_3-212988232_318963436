@@ -10,7 +10,7 @@
     </div>
     <div class="button-container">
       <button @click="openSearchModal" class="button-74">Search Family</button>
-      <button @click="openCreateModal" class="button-74">Create Family</button>
+      <button @click="openCreateModal" class="button-74" style="margin-left: 15px;">Create Family</button>
     </div>
 
     <b-modal v-model="showSearchModal" title="Search Family">
@@ -58,22 +58,20 @@
       </form>
     </b-modal>
 
-    <table class="family-table">
-      <thead>
-        <tr>
-          <th>Family Name</th>
-          <th>Number of Participants</th>
-        </tr>
-      </thead>
+    <ul style="margin-top: 35px;">
+      <div class="myTitle">
+      <h2> My Families</h2>
+
+    </div>
       <tbody>
         <div
           v-for="family in myFamilieswithMembers"
           :key="family.family.family_id"
-        >
+        style="margin-bottom: 15px;">
           <tr>
-            <td>
-              <button @click="toggleFamilyMembers(family)" >
-                {{ family.showMembers ? "v" : "^" }}
+            <td  style="color: white;">
+              <button @click="toggleFamilyMembers(family)" class="button-89" style="" >
+                {{ family.showMembers ? "-" : "+" }}
               </button>
               <router-link
                 :to="{
@@ -81,10 +79,10 @@
                   params: { id: family.family.family_id },
                 }"
               >
+              
                 {{ family.family.name }}
               </router-link>
             </td>
-            <td>{{ family.members.length }}</td>
           </tr>
           <tr v-if="family.showMembers">
             <td colspan="2">
@@ -108,7 +106,7 @@
           </tr>
         </div>
       </tbody>
-    </table>
+    </ul>
   </div>
 </template>
 
@@ -257,39 +255,98 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+/* CSS */
+.button-89 {
+  --b: 3px;   /* border thickness */
+  --s: .45em; /* size of the corner */
+  --color: #373B44;
+  
+  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  color: var(--color);
+  --_p: var(--s);
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  transition: .3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: .6em;
+  font-size: 16px;
+  align-self: center;
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-89:hover,
+.button-89:focus-visible{
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: .05em;
+}
+
+.button-89:active {
+  background: var(--color);
+  color: #fff;
+}
+
 .family-page {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.family-table {
-  margin-top: 20px;
-  border-collapse: collapse;
-  font-size: 18px;
-  width: 70%;
-  max-width: 800px;
+.table_responsive {
+  max-width: 900px;
+  border: 1px solid #312415;
+  background-color: #efefef33;
+  padding: 15px;
+  overflow: auto;
+  margin: auto;
+  border-radius: 4px;
+}
+table {
+  width: 100%;
+  font-size: 13px;
+  color: #444;
+  white-space: nowrap;
+  border-collapse: separate;
+  
+  background-color: #fff;
+  border-radius: 4px;
+  border-color: #312415;
+
+}
+a {
+  font-size: 30px;
+
+  color: #444;
 }
 
-.family-table th,
-.family-table td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
+table > thead {
+  background-color: #fbeee0;
+  color: #422800;
 }
-
-.sub-table {
-  margin-top: 10px;
-  border-collapse: collapse;
-  font-size: 16px;
-  width: 70%;
-  max-width: 800px;
+table > thead th {
+  padding: 15px;
 }
-
-.sub-table th,
-.sub-table td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
+table th,
+table td {
+  border: 1px solid #312415;
+  padding: 10px 15px;
+  font-size: 25px;
+}
+table > tbody > tr > td > img {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 6px #0003;
 }
 </style>
