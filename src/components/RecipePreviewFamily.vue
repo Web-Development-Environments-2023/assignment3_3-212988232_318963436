@@ -3,7 +3,7 @@
     <div class="card-image">
       <img
         :src="recipe.image"
-        class="recipe-image"
+        class="card__img"
         onerror="this.src='https://media.istockphoto.com/id/1141639313/photo/contact-us-woman-hand-holding-icon-customer-support-concept-copy-space.jpg?s=2048x2048&w=is&k=20&c=MxSuJtElp1vpswR4y-xLMdcEwSbPp4quLGtAXdu-bvQ=';"
       />
     </div>
@@ -17,6 +17,7 @@
           }"
           type="button"
         >
+  
           <h2 class="card-title">{{ recipe.title }}</h2>
         </router-link>
       </div>
@@ -129,54 +130,52 @@ body {
   padding: 40px 20px;
 }
 .card {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin-bottom: 60px;
-  background: transparent;
-  border: solid transparent;
-}
-.card > div {
-  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: calc(33.33% - 20px); /* Adjust the width as per your requirements */
+  margin: 10px;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  background-color: rgb(21, 18, 18);
+  padding-bottom: 30px;
 }
 
-.card-image > img {
+.card-image {
+  position: relative;
+}
+
+.card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: bottom;
+  transform: scale(calc(1 + (var(--hover, 0) * 0.25)))
+    rotate(calc(var(--hover, 0) * -5deg));
+  transition: transform 0.2s;
 }
-.card-text {
-  margin: -30px auto;
-  margin-bottom: -50px;
-  height: 300px;
-  width: 300px;
-  background-color: #38363d;
-  color: #fff;
-  padding: 20px;
-}
-.card-meal-type {
-  font-style: italic;
-}
-.card-title {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
-  margin-top: 5px;
-}
-.card-body {
-  font-size: 1.25rem;
-}
-.card-price {
-  width: 100px;
-  height: 100px;
-  background-color: #970c0a;
-  color: #fff;
-  margin-left: auto;
-  font-size: 2rem;
+
+.image-icons {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.image-icons li {
+  margin: 0 5px;
+}
+
+/* Adjust the height and width of the icons as per your requirements */
+.image-icons img {
+  height: 50px;
+  width: 50px;
+}
+
 #table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -203,5 +202,9 @@ li a {
   text-align: center;
   padding: 16px;
   text-decoration: none;
+}
+
+.card:is(:hover, :focus-visible) {
+  --hover: 1;
 }
 </style>

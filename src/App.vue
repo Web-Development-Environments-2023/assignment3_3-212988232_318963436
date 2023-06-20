@@ -4,6 +4,8 @@
     style="width: 100%;  
   justify-content: center; dispaly: flex;"
   >
+  <div class="navbarFlow">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <p
@@ -100,6 +102,7 @@
         </div>
       </div>
     </nav>
+  </div>
     <router-view />
   </div>
 </template>
@@ -141,12 +144,10 @@ export default {
 
 body {
   background: url(https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1776&q=80);
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
   display: flex;
-  background-repeat: repeat-y;
-
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   margin: 0;
 }
 
@@ -186,7 +187,13 @@ ul li ul li {
   margin-bottom: 20px;
   border-style: none;
 }
-
+.navbarFlow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
 ul li ul li a:hover {
   padding-left: 10px;
   border-left: 2px solid #3ca0e7;
@@ -204,4 +211,43 @@ a {
 ul li ul li a {
   transition: all 0.5s ease;
 }
+
+
+
+.myTitle h2 {
+  position:relative;
+  font-size:35px;text-align:left; line-height:1.5em; padding-bottom:45px; font-family:"Playfair Display", serif; text-transform:uppercase;letter-spacing: 2px; color:#111;
+  margin-bottom: 10px;
+}
+
+
+
+.myTitle h1 {
+  position:relative;
+  font-size:50px;text-align:center; line-height:1.5em; padding-bottom:45px; font-family:"Playfair Display", serif; text-transform:uppercase;letter-spacing: 2px; color:#111;
+  margin-bottom: 30px;
+}
+
+
+
+
+.myTitle h1:before {
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  width: 60%;
+  left:50%; margin-left:-30%;
+  height: 1px;
+  content: "";
+  background-color: #777; z-index: 4;
+}
+.myTitle h1:after {
+  position:absolute;
+  width:40px; height:40px; left:50%; margin-left:-20px; bottom:0px;
+  content: '\00a7'; font-size:50px; line-height:40px; color:#c50000;
+  font-weight:400; z-index: 5;
+  display:block;
+  
+}
+
 </style>

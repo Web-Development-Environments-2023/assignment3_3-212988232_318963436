@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">My Favorite Recipes</h1>
+    <div class="myTitle">
+      <h1>Favorite</h1>
+    </div>
     <RecipePreviewList
       title="Recipes"
       isRandom="favorites"

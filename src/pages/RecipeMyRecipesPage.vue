@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <h1 class="title">My Recipes</h1>
+    <div>
+         <div class="myTitle">
+      <h1>My Recipes</h1>
+    </div>
+    </div>
+ 
     <b-button @click="openCreateRecipeModal">Create Recipe</b-button>
     <RecipePreviewList
       title="Personal recipes"

@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">Search Page</h1>
+    <div class="myTitle">
+      <h1>Search Page</h1>
+    </div>
     <b-form @submit.prevent="search" @reset.prevent="onReset">
       <b-form-group
         id="input-group-query"
