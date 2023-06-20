@@ -9,14 +9,12 @@
       class="RandomRecipes center"
       ref="RandomRecipePreview"
     />
-    <router-link v-if="!$store.state.username" to="/login" tag="button"
-      >You need to Login to vue this</router-link
+   
+    <router-link v-if="!$store.state.username" to="/login" tag="button" style="background: transparent; border: none; cursor: pointer;"
+      > <button class="button-74">Login For More</button>
+    </router-link
     >
-    <div class="reReRendom">
-      <button @click="ReRandomRecipes">
-        Random
-      </button>
-    </div>
+        
 
     <RecipePreviewList
       v-if="$store.state.username"
@@ -44,9 +42,7 @@ export default {
     RecipePreviewList,
   },
   methods: {
-    ReRandomRecipes() {
-      this.$refs.RandomRecipePreview.updateRecipes();
-    },
+
   },
 };
 </script>

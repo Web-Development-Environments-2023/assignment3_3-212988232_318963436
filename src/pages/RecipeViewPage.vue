@@ -66,7 +66,7 @@
 
         <h3>instructions</h3>
         <ol>
-          <li v-for="instruction in this.instructions" :key="instruction.id" class="li_step">
+          <li v-for="instruction in this.instructions" :key="instruction.id" class="li_step" style="float: none;">
             {{ instruction.step }}
           </li>
         </ol>

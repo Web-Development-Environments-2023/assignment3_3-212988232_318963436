@@ -24,12 +24,12 @@
       <div class="card-body">
         
         <ul>
-          <li>
+          <li class="my_li">
             <img src="../assets/clock_black.png" height="25px" width="25px" />
             {{ this.readyInMinutes }}
           </li>
 
-          <li>
+          <li class="my_li">
             <img
               src="../assets/servings_black.png"
               height="25px"
@@ -67,7 +67,7 @@
 
         <h2>instructions</h2>
         <ol>
-          <li
+          <li class="li_step"
             v-for="instruction in this.instructions"
             :key="instruction.step_number"
           >
@@ -339,6 +339,8 @@ ul:first-child {
 
 li {
   padding: 30px;
+}
+.my_li{
   float: left;
 }
 

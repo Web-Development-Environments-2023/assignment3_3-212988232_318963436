@@ -2,10 +2,14 @@
    
 
     <div >
+      
        <div class="myTitle">
+        
     <h2 style="text-align: center;">
-      {{ title }}
+      <img @click="ReRandomRecipes" src="../assets/refresh.png" style="cursor: pointer;" title="refresh" alt="refresh" v-if="isRandomfunc()">
+  {{ title }}
     </h2>
+
   </div>
 <div>
         <RecipePreview
@@ -51,6 +55,13 @@ export default {
     this.updateRecipes();
   },
   methods: {
+    async ReRandomRecipes() {
+      await this.updateRecipes();
+    },
+     isRandomfunc(){
+      return this.isRandom === "random";
+
+    },
     async updateRecipes() {
       try {
         let response;
