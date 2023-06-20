@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+	<div class="myTitle">
+	  <h1>Home</h1>
+	</div>
     <RecipePreviewList
       title="Random Recipes"
       isRandom="random"

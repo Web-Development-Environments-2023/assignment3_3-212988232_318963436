@@ -14,6 +14,14 @@
         />
       </router-link>
 
+      <router-link
+          v-if="UserRecipe"
+          :to="{ name: 'recipeUser', params: { recipeId: this.id } }"
+          type="button"
+        >
+        <img  v-if="image_load" :src="recipe.image" class="card__img" >
+        </router-link>
+
       <ul style="  margin-right: 10px;" class="image-icons">
         <li v-if="this.vegan">
           <img src="../assets/vegan.png" height="50px" width="50px" />
@@ -31,13 +39,6 @@
       <div height="50px">
         <h2 class="card-title" style="color:white;">{{ this.title }}</h2>
 
-        <router-link
-          v-if="UserRecipe"
-          :to="{ name: 'recipeUser', params: { recipeId: this.id } }"
-          type="button"
-        >
-          <h2 class="card-title">{{ this.title }}</h2>
-        </router-link>
       </div>
     </div>
 
@@ -45,31 +46,31 @@
       style="  position: absolute;
         bottom: 0; "
     >
-      <li>
+      <li >
         <img
           :id="'favorite' + this.id"
           type="button"
           value="favorite"
           @click="setFavorite(id, true)"
-          src="../assets/unfavorite.png"
+          src="../assets/unfavorite.png"  height="25px" width="25px" 
         />
         <img
           :id="'unfavorite' + this.id"
           type="button"
           value="unfavorite"
           @click="setFavorite(id, false)"
-          src="../assets/favorite.png"
+          src="../assets/favorite.png"  height="25px" width="25px"
         />
       </li>
-      <li style="color:white; padding-right: 30px;">
+      <li style="color:white; padding-left: 30px;">
         <img src="../assets/clock.png" height="25px" width="25px" />
         {{ this.readyInMinutes }}
       </li>
-      <li style="color:white;  padding-right: 30px;">
+      <li v-if="!UserRecipe" style="color:white; padding-left: 30px;">
         <img src="../assets/like.png" height="25px" width="25px" />
         {{ this.popularity }}
       </li>
-      <li style="color:white;">
+      <li style="color:white; padding-left: 30px;">
         <img src="../assets/servings.png" height="25px" width="25px" />
         {{ this.servings }}
       </li>

@@ -1,7 +1,8 @@
 <template>
-  <div class="family-page">
-    <h1>Family Page</h1>
-    <h3>My Families</h3>
+  <div class="container">
+    <div class="myTitle">
+      <h1>mi familia</h1>
+    </div>
 
     <div v-if="myFamilieswithMembers.length == 0">
       <p>You are not in any family.</p>

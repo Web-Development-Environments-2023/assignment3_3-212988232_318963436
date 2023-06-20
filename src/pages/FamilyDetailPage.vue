@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">My Family Recipes</h1>
+    <div class="myTitle">
+      <h1>Family Detail Page</h1>
+    </div>
     <button @click="openAddRecipeModal">Add Recipe</button>
     <b-modal
       id="addRecipeToFamily"

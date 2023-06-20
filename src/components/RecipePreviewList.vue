@@ -1,9 +1,11 @@
 <template>
   <b-container>
-    <h3>
-      {{ title }}:
-      <slot></slot>
-    </h3>
+    <div class="myTitle">
+    <h2>
+      {{ title }}
+    </h2>
+</div>
+
 
     <div class="container">
       <RecipePreview
@@ -43,6 +45,7 @@ export default {
   mounted() {
     if (this.isRandom === "MyRecipes") {
       this.UserRecipe = true;
+      console.log("this.UserRecipe", this.UserRecipe);
     }
     this.updateRecipes();
   },
