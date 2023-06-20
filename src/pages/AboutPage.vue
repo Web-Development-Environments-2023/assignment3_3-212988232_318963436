@@ -27,7 +27,7 @@
       great recipes and a social network for connecting with other food lovers.
       If you have any feedback or suggestions, we would love to hear from you.
     </p>
-    <div class="container">
+    <div class="container" style="margin-top: 0;">
       <div class="myTitle">
         <h2>About the Authors</h2>
       </div>
@@ -71,5 +71,11 @@ p {
 .footer a {
   display: block;
   margin-bottom: 5px;
+}
+p {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: text;
+  line-height: 1.5;
 }
 </style>
