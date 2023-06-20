@@ -41,10 +41,10 @@ export default {
     };
   },
   mounted() {
-    this.updateRecipes();
     if (this.isRandom === "MyRecipes") {
       this.UserRecipe = true;
     }
+    this.updateRecipes();
   },
   methods: {
     async updateRecipes() {

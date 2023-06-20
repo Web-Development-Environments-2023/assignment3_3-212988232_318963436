@@ -5,7 +5,7 @@
 
     <div v-if="myFamilieswithMembers.length == 0">
       <p>You are not in any family.</p>
-      <p>Click the button below to create a family.</p>
+      <p>Click the button below to create or join a family.</p>
     </div>
     <div class="button-container">
       <button @click="openSearchModal">Search Family</button>
@@ -164,7 +164,7 @@ export default {
           familyId: family.family_id,
           isAdd: isAdd,
         });
-        if (response.status === 200) {
+        if (response.status === 204) {
           this.$root.toast(
             "Search Family",
             "successfully to the family",
@@ -177,6 +177,7 @@ export default {
             "danger"
           );
         }
+        this.updateFamily();
       } catch (error) {
         this.$root.toast(
           "Search Family",
@@ -208,6 +209,7 @@ export default {
           );
           this.newFamily.Family_name = "";
         }
+        this.updateFamily();
       } catch (error) {
         console.error(error);
         this.$root.toast(
@@ -219,32 +221,36 @@ export default {
         this.this.newFamily.lastName = "";
       }
     },
+    async updateFamily() {
+      try {
+        this.myFamilieswithMembers = [];
+        let response = await this.$store.dispatch("myFamilies");
+        if (!response.status == 200) {
+          this.$router.push("/");
+          return;
+        }
+        this.myFamilies = response.data;
+        if (this.myFamilies.length > 0) {
+          this.myFamilies.map(async (family) => {
+            let response = await this.$store.dispatch("getFamilyMembers", {
+              familyId: family.family_id,
+            });
+            if (response.status == 200 && response.data.length > 0) {
+              this.myFamilieswithMembers.push({
+                family: family,
+                members: response.data,
+                showMembers: false,
+              });
+            }
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   async created() {
-    try {
-      let response = await this.$store.dispatch("myFamilies");
-      if (!response.status == 200) {
-        this.$router.push("/");
-        return;
-      }
-      this.myFamilies = response.data;
-      if (this.myFamilies.length > 0) {
-        this.myFamilies.map(async (family) => {
-          let response = await this.$store.dispatch("getFamilyMembers", {
-            familyId: family.family_id,
-          });
-          if (response.status == 200 && response.data.length > 0) {
-            this.myFamilieswithMembers.push({
-              family: family,
-              members: response.data,
-              showMembers: false,
-            });
-          }
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    this.updateFamily();
   },
 };
 </script>

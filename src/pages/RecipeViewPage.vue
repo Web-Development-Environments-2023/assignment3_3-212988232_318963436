@@ -1,7 +1,5 @@
 <template>
-
-  
-  <div class= "center">
+  <div class="center">
     <div class="card" style="width: 50rem;">
       <h2 class="card-title">{{ this.title }}</h2>
       <img :src="this.image" class="card-img-top" />
@@ -194,8 +192,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 *,
 *::before,
 *::after {
@@ -209,7 +205,7 @@ export default {
 
 .cards {
   display: grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
@@ -221,12 +217,12 @@ export default {
 }
 
 .card_image {
-  height: calc(13*1.2rem);
+  height: calc(13 * 1.2rem);
   padding: 1.2rem 1.2rem 0;
-  position:relative;
+  position: relative;
 }
 .card_image:before,
-.card_image:after{
+.card_image:after {
   content: "";
   position: absolute;
   width: 20px;
@@ -236,22 +232,21 @@ export default {
   background: #e6e6e6b8;
   transform: rotate(45deg);
 }
-.card_image:after{
+.card_image:after {
   transform: rotate(-45deg);
-  top:auto;
-  bottom:-22px;
-  left:40%;
+  top: auto;
+  bottom: -22px;
+  left: 40%;
 }
 .card_image img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .cards_item {
-  filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
 }
-
 
 .card {
   background-color: white;
@@ -260,31 +255,34 @@ export default {
   flex-direction: column;
   overflow: hidden;
   padding-left: 30px;
-  background: repeating-linear-gradient(#0000 0 calc(1.2rem - 1px),#66afe1 0 1.2rem) right bottom /100% 100%,linear-gradient(red 0 0) 30px 0/2px 100% #fff;
+  background: repeating-linear-gradient(
+        #0000 0 calc(1.2rem - 1px),
+        #66afe1 0 1.2rem
+      )
+      right bottom / 100% 100%,
+    linear-gradient(red 0 0) 30px 0/2px 100% #fff;
   background-repeat: no-repeat;
   line-height: 1.2rem;
-  -webkit-mask:radial-gradient(circle .8rem at 2px 50%,#0000 98%,#000)0 0/100% 2.4rem;
 }
 
 .card_content {
   padding: 1.2rem;
 }
 
-h2.card_title,p {
+h2.card_title,
+p {
   margin: 1.2rem 0;
- 
-  
 }
 h2.card_title {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 body {
-  font-family:monospace;
-  background:#eee;
+  font-family: monospace;
+  background: #eee;
 }
 
 html {
-  font-size:15px;
+  font-size: 15px;
 }
 
 .wrapper {
@@ -298,7 +296,7 @@ html {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  margin-top: 160px; 
+  margin-top: 160px;
 }
 
 /* .recipe-header{
@@ -394,7 +392,6 @@ li {
   padding: 30px;
   float: left;
 }
-
 
 /* }
 .card {

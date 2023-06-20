@@ -2,46 +2,35 @@
   <div class="card">
     <div class="card-image">
       <router-link
-          v-if="!UserRecipe"
-          :to="{ name: 'recipe', params: { recipeId: this.id } }"
-          type="button"
-        >
+        v-if="!UserRecipe"
+        :to="{ name: 'recipe', params: { recipeId: this.id } }"
+        type="button"
+      >
         <img
-        v-if="image_load"
-        :src="recipe.image"
-        class="card__img"
-        onerror="this.src='https://media.istockphoto.com/id/1141639313/photo/contact-us-woman-hand-holding-icon-customer-support-concept-copy-space.jpg?s=2048x2048&w=is&k=20&c=MxSuJtElp1vpswR4y-xLMdcEwSbPp4quLGtAXdu-bvQ=';"
-      />
+          v-if="image_load"
+          :src="recipe.image"
+          class="card__img"
+          onerror="this.src='https://media.istockphoto.com/id/1141639313/photo/contact-us-woman-hand-holding-icon-customer-support-concept-copy-space.jpg?s=2048x2048&w=is&k=20&c=MxSuJtElp1vpswR4y-xLMdcEwSbPp4quLGtAXdu-bvQ=';"
+        />
       </router-link>
 
-      <ul style="  margin-right: 10px;" class="image-icons" >
+      <ul style="  margin-right: 10px;" class="image-icons">
         <li v-if="this.vegan">
           <img src="../assets/vegan.png" height="50px" width="50px" />
         </li>
         <li v-if="this.vegetarian">
-          <img
-            src="../assets/vegetarian.png"
-            height="50px"
-            width="50px"
-           
-          />
+          <img src="../assets/vegetarian.png" height="50px" width="50px" />
         </li>
-        <li  v-if="this.glutenFree">
-          <img
-            src="../assets/glutenfree.png"
-            height="50px"
-            width="50px"
-          
-          />
+        <li v-if="this.glutenFree">
+          <img src="../assets/glutenfree.png" height="50px" width="50px" />
         </li>
       </ul>
     </div>
 
     <div class="card-text">
       <div height="50px">
+        <h2 class="card-title" style="color:white;">{{ this.title }}</h2>
 
-          <h2 class="card-title" style="color:white;">{{ this.title }}</h2>
-        
         <router-link
           v-if="UserRecipe"
           :to="{ name: 'recipeUser', params: { recipeId: this.id } }"
@@ -52,24 +41,26 @@
       </div>
     </div>
 
-    <ul  style="  position: absolute;
-        bottom: 0; ">
-        <li>
-          <img   
-            :id="'favorite' + this.id"
-            type="button"
-            value="favorite"
-            @click="setFavorite(id, true)"
+    <ul
+      style="  position: absolute;
+        bottom: 0; "
+    >
+      <li>
+        <img
+          :id="'favorite' + this.id"
+          type="button"
+          value="favorite"
+          @click="setFavorite(id, true)"
           src="../assets/unfavorite.png"
-          />
-          <img
+        />
+        <img
           :id="'unfavorite' + this.id"
-            type="button"
-            value="unfavorite"
-            @click="setFavorite(id, false)"
+          type="button"
+          value="unfavorite"
+          @click="setFavorite(id, false)"
           src="../assets/favorite.png"
-          />
-        </li>
+        />
+      </li>
       <li style="color:white; padding-right: 30px;">
         <img src="../assets/clock.png" height="25px" width="25px" />
         {{ this.readyInMinutes }}
@@ -122,7 +113,7 @@ export default {
       try {
         let response = await this.$store.dispatch("setFavorite", {
           recipeId: recipeId,
-          isFav: isFav
+          isFav: isFav,
         });
 
         console.log("response", response);
@@ -141,26 +132,30 @@ export default {
       }
     },
     async changeBTN(recipeId) {
-      if (this.$store.state.username) {
+      if (
+        this.$store.state.username != null &&
+        this.$route.name != "myRecipes"
+      ) {
         if (this.favorite) {
-          document.getElementById("favorite"+recipeId).style.display = "none";
-          document.getElementById("unfavorite"+recipeId).style.display = "block";
+          document.getElementById("favorite" + recipeId).style.display = "none";
+          document.getElementById("unfavorite" + recipeId).style.display =
+            "block";
         } else {
-          document.getElementById("favorite"+recipeId).style.display = "block";
-          document.getElementById("unfavorite"+recipeId).style.display = "none";
+          document.getElementById("favorite" + recipeId).style.display =
+            "block";
+          document.getElementById("unfavorite" + recipeId).style.display =
+            "none";
         }
       } else {
-        document.getElementById("favorite"+recipeId).style.display = "none";
-        document.getElementById("unfavorite"+recipeId).style.display = "none";
+        document.getElementById("favorite" + recipeId).style.display = "none";
+        document.getElementById("unfavorite" + recipeId).style.display = "none";
       }
     },
   },
   mounted() {
     this.changeBTN(this.id);
   },
-
 };
-
 </script>
 
 <style scoped>
@@ -215,10 +210,10 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(calc(1 + (var(--hover, 0) * 0.25))) rotate(calc(var(--hover, 0) * -5deg));
+  transform: scale(calc(1 + (var(--hover, 0) * 0.25)))
+    rotate(calc(var(--hover, 0) * -5deg));
   transition: transform 0.2s;
 }
-
 
 .image-icons {
   position: absolute;

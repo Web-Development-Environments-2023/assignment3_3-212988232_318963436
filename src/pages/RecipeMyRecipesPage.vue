@@ -3,10 +3,10 @@
     <h1 class="title">My Recipes</h1>
     <b-button @click="openCreateRecipeModal">Create Recipe</b-button>
     <RecipePreviewList
-      :change-flag="recipes.length"
       title="Personal recipes"
       isRandom="MyRecipes"
       :UserRecipe="true"
+      ref="recipePreviewList"
     ></RecipePreviewList>
 
     <div id="addRecipe">
@@ -340,7 +340,7 @@ export default {
             "Recipe created successfuly",
             "success"
           );
-          this.recipes.push(recipe);
+          this.$refs.recipePreviewList.updateRecipes();
         }
       } catch (error) {
         console.log(error);
@@ -431,8 +431,6 @@ export default {
       return this.prefix + image;
     },
   },
- 
-
 };
 </script>
 
