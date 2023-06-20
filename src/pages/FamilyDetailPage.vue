@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="myTitle">
-      <h1>Family Detail Page</h1>
+      <h1>{{ this.name }} Family Page</h1>
     </div>
     <button @click="openAddRecipeModal">Add Recipe</button>
     <b-modal
@@ -78,6 +78,7 @@ export default {
       recipes: [],
       user_recipes: [],
       AddRecipeModalFamily: false,
+      name: "",
     };
   },
   mounted() {
@@ -88,6 +89,7 @@ export default {
     async updateRecipes() {
       try {
         const familyId = this.$route.params.id; // Access the id from route params
+        this.name = this.$route.params.name;
         if (!familyId) {
           this.$router.push("/");
           return;

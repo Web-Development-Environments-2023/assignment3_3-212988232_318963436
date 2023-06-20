@@ -35,7 +35,9 @@
               <td>{{ result.name }}</td>
 
               <td>
-                <button @click="addFamily(result, true)" class="button-74">Join</button>
+                <button @click="addFamily(result, true)" class="button-74">
+                  Join
+                </button>
               </td>
             </tr>
           </tbody>
@@ -54,7 +56,7 @@
           placeholder="Enter Family Name"
           required
         />
-        <button type="submit" >Create</button>
+        <button type="submit">Create</button>
       </form>
     </b-modal>
 
@@ -72,13 +74,16 @@
         >
           <tr>
             <td>
-              <button @click="toggleFamilyMembers(family)" >
+              <button @click="toggleFamilyMembers(family)">
                 {{ family.showMembers ? "v" : "^" }}
               </button>
               <router-link
                 :to="{
                   name: 'familyRecipes',
-                  params: { id: family.family.family_id },
+                  params: {
+                    id: family.family.family_id,
+                    name: family.family.name,
+                  },
                 }"
               >
                 {{ family.family.name }}
