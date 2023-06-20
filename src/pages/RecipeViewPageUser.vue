@@ -1,16 +1,44 @@
 <template>
   <div class="center">
+    <div class="myTitle">
+      <h1 style="text-align: center;">{{ this.title }}</h1>
+    </div>
     <div class="card" style="width: 50rem;">
-      <h3 class="card-title" style="text-align: center;">{{ this.title }}</h3>
-      <img :src="this.image" class="card-img-top" />
+      
+      <div class="card-image">
+
+        <img :src="this.image" class="card-img-top" />
+      <ul  class="image-icons">
+          <li v-if="this.vegan">
+            <img src="../assets/vegan.png" height="100px" width="100px" />
+          </li>
+          <li v-if="this.vegetarian">
+            <img src="../assets/vegetarian.png" height="100px" width="100px" />
+          </li>
+          <li v-if="this.glutenFree">
+            <img src="../assets/glutenfree.png" height="100px" width="100px" />
+          </li>
+        </ul>
+      </div>
+      
       <div class="card-body">
-        <p class="card-text">
-          {{ this.readyInMinutes }} minutes <br />
-          {{ this.servings }} servings <br />
-          {{ this.vegan }} vegan <br />
-          {{ this.vegetarian }} vegetarian <br />
-          {{ this.glutenFree }} glutenFree <br />
-        </p>
+        
+        <ul>
+          <li>
+            <img src="../assets/clock_black.png" height="25px" width="25px" />
+            {{ this.readyInMinutes }}
+          </li>
+
+          <li>
+            <img
+              src="../assets/servings_black.png"
+              height="25px"
+              width="25px"
+            />
+            {{ this.servings }}
+          </li>
+        </ul>
+
 
         <h2>ingredients</h2>
         <table>
@@ -111,7 +139,101 @@ export default {
   },
 };
 </script>
+
 <style scoped>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cards_item {
+  display: flex;
+  padding: 1rem;
+}
+
+.card_image {
+  height: calc(13 * 1.2rem);
+  padding: 1.2rem 1.2rem 0;
+  position: relative;
+}
+.card_image:before,
+.card_image:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  left: 60%;
+  top: 0;
+  height: 45px;
+  background: #e6e6e6b8;
+  transform: rotate(45deg);
+}
+.card_image:after {
+  transform: rotate(-45deg);
+  top: auto;
+  bottom: -22px;
+  left: 40%;
+}
+.card_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cards_item {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
+}
+
+.card {
+  background-color: white;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-left: 30px;
+  background: repeating-linear-gradient(
+        #0000 0 calc(1.2rem - 1px),
+        #66afe1 0 1.2rem
+      )
+      right bottom / 100% 100%,
+    linear-gradient(red 0 0) 30px 0/2px 100% #fff;
+  background-repeat: no-repeat;
+  line-height: 1.2rem;
+}
+
+.card_content {
+  padding: 1.2rem;
+}
+
+h2.card_title,
+p {
+  margin: 1.2rem 0;
+}
+h2.card_title {
+  font-size: 1.3em;
+}
+body {
+  font-family: monospace;
+  background: #eee;
+}
+
+html {
+  font-size: 15px;
+}
+
 .wrapper {
   display: flex;
 }
@@ -123,7 +245,12 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+  margin-top: 160px;
 }
+
+/* .recipe-header{
+
+} */
 
 .table_responsive {
   max-width: 900px;
@@ -140,6 +267,7 @@ table {
   color: #444;
   white-space: nowrap;
   border-collapse: collapse;
+  background-color: #fff;
 }
 table > thead {
   background-color: #00bcd4;
@@ -211,7 +339,10 @@ ul:first-child {
 
 li {
   padding: 30px;
+  float: left;
 }
+
+/* }
 .card {
   display: flex;
   flex-direction: column;
@@ -223,7 +354,7 @@ li {
 }
 .card > div {
   box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.5);
-}
+} */
 
 li a {
   display: block;
@@ -232,7 +363,7 @@ li a {
   padding: 16px;
   text-decoration: none;
 }
-.card-text {
+/* .card-text {
   margin: -30px auto;
   margin-bottom: -50px;
   height: 300px;
@@ -250,5 +381,5 @@ li a {
 }
 .card-body {
   font-size: 1.25rem;
-}
+} */
 </style>

@@ -156,7 +156,7 @@ footer {
 }
 
 .container {
-  margin-top: 160px; /* Adjust the margin value to create the desired space */
+  margin-top: 100px; /* Adjust the margin value to create the desired space */
 }
 
 ul li ul {
@@ -215,9 +215,7 @@ ul li ul li a {
 
 
 .myTitle h2 {
-  position:relative;
   font-size:35px;text-align:left; line-height:1.5em; padding-bottom:45px; font-family:"Playfair Display", serif; text-transform:uppercase;letter-spacing: 2px; color:#111;
-  margin-bottom: 10px;
 }
 
 
@@ -248,6 +246,135 @@ ul li ul li a {
   font-weight:400; z-index: 5;
   display:block;
   
+}
+
+
+/* CSS */
+.button-74 {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-74:hover {
+  background-color: #fff;
+}
+
+.button-74:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* background-color: rgb(0, 0, 0); */
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+
+/* CSS */
+.submitbtn {
+  background-color: #13aa52;
+  border: 1px solid #13aa52;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  padding: 10px 25px;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width : 20%;
+}
+
+.submitbtn:hover {
+  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .submitbtn{
+    padding: 10px 30px;
+  }
+}
+
+.li_step{
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.5;
+  
+}
+
+h3 {
+  font-weight: bold;
+
+  font-size:40px;text-align:center; line-height:1.5em; padding-bottom:45px; font-family:"Playfair Display", serif; text-transform:uppercase;letter-spacing: 2px; color:#111;
+}
+
+.card-image {
+  position: relative;
+}
+
+
+.image-icons {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-icons li {
+  margin: 0 5px;
+}
+
+/* Adjust the height and width of the icons as per your requirements */
+.image-icons img {
+  height: 50px;
+  width: 50px;
 }
 
 </style>

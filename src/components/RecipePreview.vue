@@ -203,10 +203,6 @@ body {
   padding-bottom: 30px;
 }
 
-.card-image {
-  position: relative;
-}
-
 .card__img {
   width: 100%;
   height: 100%;
@@ -216,28 +212,6 @@ body {
   transition: transform 0.2s;
 }
 
-.image-icons {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-icons li {
-  margin: 0 5px;
-}
-
-/* Adjust the height and width of the icons as per your requirements */
-.image-icons img {
-  height: 50px;
-  width: 50px;
-}
 
 #table {
   border-collapse: collapse;

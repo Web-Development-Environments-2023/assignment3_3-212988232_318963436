@@ -1,22 +1,23 @@
 <template>
-  <b-container>
-    <div class="myTitle">
-    <h2>
+   
+
+    <div >
+       <div class="myTitle">
+    <h2 style="text-align: center;">
       {{ title }}
     </h2>
-</div>
-
-
-    <div class="container">
-      <RecipePreview
+  </div>
+<div>
+        <RecipePreview
         v-for="r in recipes"
         :key="r.id"
         class="recipePreview"
         :recipe="r"
         :UserRecipe="UserRecipe"
       />
+</div>
+
     </div>
-  </b-container>
 </template>
 
 <script>
@@ -88,6 +89,11 @@ export default {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  padding: 40px 20px;
+}
+.container2 {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 </style>

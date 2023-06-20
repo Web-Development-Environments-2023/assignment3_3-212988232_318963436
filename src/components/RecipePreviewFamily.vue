@@ -1,15 +1,10 @@
 <template>
   <div class="card">
-    <div class="card-image">
-      <img
-        :src="recipe.image"
-        class="card__img"
-        onerror="this.src='https://media.istockphoto.com/id/1141639313/photo/contact-us-woman-hand-holding-icon-customer-support-concept-copy-space.jpg?s=2048x2048&w=is&k=20&c=MxSuJtElp1vpswR4y-xLMdcEwSbPp4quLGtAXdu-bvQ=';"
-      />
-    </div>
+
 
     <div class="card-text">
       <div height="50px">
+        <div class="card-image">
         <router-link
           :to="{
             name: 'recipeUser',
@@ -17,23 +12,17 @@
           }"
           type="button"
         >
-  
-          <h2 class="card-title">{{ recipe.title }}</h2>
+        
+      <img
+        :src="recipe.image"
+        class="card__img"
+        onerror="this.src='https://media.istockphoto.com/id/1141639313/photo/contact-us-woman-hand-holding-icon-customer-support-concept-copy-space.jpg?s=2048x2048&w=is&k=20&c=MxSuJtElp1vpswR4y-xLMdcEwSbPp4quLGtAXdu-bvQ=';"
+      />
+   
         </router-link>
-      </div>
-    </div>
 
-    <ul class="card-text">
-      <li>
-        <img src="../assets/clock.png" height="25px" width="25px" />
-        {{ recipe.readyInMinutes }}
-      </li>
-      <li>
-        <img src="../assets/servings.png" height="25px" width="25px" />
-        {{ recipe.servings }}
-      </li>
-    </ul>
-    <ul>
+
+        <ul class="image-icons">
       <li>
         <img
           src="../assets/vegan.png"
@@ -59,12 +48,26 @@
         />
       </li>
     </ul>
+ </div>
+      </div>
+    </div>
+
+    <ul class="card-text">
+      <li style="color: white;">
+        <img src="../assets/clock.png" height="25px" width="25px"/>
+        {{ recipe.readyInMinutes }}
+      </li>
+      <li  style="color: white;">
+        <img src="../assets/servings.png" height="25px" width="25px" />
+        {{ recipe.servings }}
+      </li>
+    </ul>
+   
     <div class="card-footer">
       <div class="card-footer-text">
         <p>Created by: {{ recipe.firstname }} {{ recipe.lastname }}</p>
         <p>Created at: {{ recipe.recipe_date }}</p>
-        <p>About : {{ recipe.data }}</p>
-        <p>family :{{ recipe.family_id }}</p>
+        <p>Summary: {{ recipe.data }}</p>
       </div>
     </div>
   </div>
@@ -206,5 +209,11 @@ li a {
 
 .card:is(:hover, :focus-visible) {
   --hover: 1;
+}
+
+p {
+  color: white;
+  font-style: italic;
+  font-size: 1.2rem;
 }
 </style>

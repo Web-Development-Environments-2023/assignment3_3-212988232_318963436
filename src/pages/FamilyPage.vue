@@ -9,8 +9,8 @@
       <p>Click the button below to create or join a family.</p>
     </div>
     <div class="button-container">
-      <button @click="openSearchModal">Search Family</button>
-      <button @click="openCreateModal">Create Family</button>
+      <button @click="openSearchModal" class="button-74">Search Family</button>
+      <button @click="openCreateModal" class="button-74">Create Family</button>
     </div>
 
     <b-modal v-model="showSearchModal" title="Search Family">
@@ -20,7 +20,7 @@
           v-model="searchQuery"
           placeholder="Enter family name"
         />
-        <button @click="searchFamily">Search</button>
+        <button @click="searchFamily" class="button-74">Search</button>
 
         <table v-if="searchResults.length > 0" class="search-results-table">
           <thead>
@@ -35,7 +35,7 @@
               <td>{{ result.name }}</td>
 
               <td>
-                <button @click="addFamily(result, true)">Join</button>
+                <button @click="addFamily(result, true)" class="button-74">Join</button>
               </td>
             </tr>
           </tbody>
@@ -54,7 +54,7 @@
           placeholder="Enter Family Name"
           required
         />
-        <button type="submit">Create</button>
+        <button type="submit" >Create</button>
       </form>
     </b-modal>
 
@@ -72,7 +72,7 @@
         >
           <tr>
             <td>
-              <button @click="toggleFamilyMembers(family)">
+              <button @click="toggleFamilyMembers(family)" >
                 {{ family.showMembers ? "v" : "^" }}
               </button>
               <router-link

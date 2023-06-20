@@ -1,8 +1,26 @@
 <template>
   <div class="center">
+    <div class="myTitle">
+      <h1>{{ this.title }}</h1>
+ 
+    </div>
     <div class="card" style="width: 50rem;">
-      <h2 class="card-title">{{ this.title }}</h2>
-      <img :src="this.image" class="card-img-top" />
+      <div class="card-image">
+        <img :src="this.image" class="card-img-top" />
+
+<ul  class="image-icons">
+    <li v-if="this.vegan">
+      <img src="../assets/vegan.png" height="50px" width="50px" />
+    </li>
+    <li v-if="this.vegetarian">
+      <img src="../assets/vegetarian.png" height="50px" width="50px" />
+    </li>
+    <li v-if="this.glutenFree">
+      <img src="../assets/glutenfree.png" height="50px" width="50px" />
+    </li>
+  </ul>
+      </div>
+      
       <div class="card-body">
         <ul>
           <li>
@@ -19,33 +37,10 @@
             {{ this.servings }}
           </li>
         </ul>
-        <ul>
-          <li v-if="this.vegan">
-            <img src="../assets/vegan.png" height="50px" width="50px" />
-          </li>
-          <li v-if="this.vegetarian">
-            <img src="../assets/vegetarian.png" height="50px" width="50px" />
-          </li>
-          <li v-if="this.glutenFree">
-            <img src="../assets/glutenfree.png" height="50px" width="50px" />
-          </li>
-        </ul>
+       
         <p class="card-text">
-          favorite <br />{{ this.seen }} seen <br />
-          <input
-            id="favorite"
-            type="button"
-            value="favorite"
-            @click="setFavorite"
-          />
-          <input
-            id="unfavorite"
-            type="button"
-            value="unfavorite"
-            @click="setFavorite"
-          />
         </p>
-        <h2>ingredients</h2>
+        <h3>ingredients</h3>
         <table>
           <thead>
             <tr>
@@ -69,9 +64,9 @@
           </tr>
         </table>
 
-        <h5>instructions</h5>
+        <h3>instructions</h3>
         <ol>
-          <li v-for="instruction in this.instructions" :key="instruction.id">
+          <li v-for="instruction in this.instructions" :key="instruction.id" class="li_step">
             {{ instruction.step }}
           </li>
         </ol>
@@ -184,9 +179,6 @@ export default {
         document.getElementById("unfavorite").style.display = "none";
       }
     },
-  },
-  async mounted() {
-    await this.changeBTN();
   },
 };
 </script>
@@ -393,19 +385,6 @@ li {
   float: left;
 }
 
-/* }
-.card {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin-bottom: 60px;
-  background-color: #ffffff;
-
-  border: solid transparent;
-}
-.card > div {
-  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.5);
-} */
 
 li a {
   display: block;
@@ -414,23 +393,5 @@ li a {
   padding: 16px;
   text-decoration: none;
 }
-/* .card-text {
-  margin: -30px auto;
-  margin-bottom: -50px;
-  height: 300px;
-  width: 300px;
-  color: #000000;
-  padding: 20px;
-}
-.card-meal-type {
-  font-style: italic;
-}
-.card-title {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
-  margin-top: 5px;
-}
-.card-body {
-  font-size: 1.25rem;
-} */
+
 </style>

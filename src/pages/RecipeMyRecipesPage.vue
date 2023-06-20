@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div>
-         <div class="myTitle">
+    
+    <div class="myTitle">
+
       <h1>My Recipes</h1>
+      <button @click="openCreateRecipeModal" class="button-74">Create Recipe</button>
+
     </div>
-    </div>
- 
-    <b-button @click="openCreateRecipeModal">Create Recipe</b-button>
     <RecipePreviewList
       title="Personal recipes"
       isRandom="MyRecipes"
@@ -20,6 +20,7 @@
         size="lg"
         title="Create Recipe"
         hide-footer
+        class="Modal"
       >
         <b-form @submit.prevent="addRecipe" @reset="resetForm">
           <b-form-group label="Title" label-for="title" label-cols-sm="3">
@@ -137,17 +138,21 @@
               </div>
             </div>
           </div>
-          <b-button type="submit" variant="primary">Create Recipe</b-button>
-          <b-button type="reset" variant="danger">Reset</b-button>
-        </b-form>
-        <div class="modal-footer">
+          <div >
           <b-button variant="primary" @click="openAddIngredientsModal"
-            >Add Ingredients</b-button
+            style="margin-right: 10px">Add Ingredients</b-button
           >
           <b-button variant="primary" @click="openAddInstructionsModal"
             >Add Instructions</b-button
           >
         </div>
+          <div class="modal-footer">
+            <b-button type="submit" variant="success" >Create Recipe</b-button>
+          <b-button type="reset" variant="danger">Reset</b-button>
+          </div>
+          
+        </b-form>
+
       </b-modal>
       <b-modal
         v-model="showAddIngredientsModal"
@@ -224,8 +229,8 @@
           <p>No results found.</p>
         </div>
       </b-modal>
-      <b-modal v-model="showAddInstructionsModal" title="Add Instructions">
-        <b-form @submit.prevent="addInstructions">
+      <b-modal v-model="showAddInstructionsModal" title="Add Instructions" hide-footer>
+        <b-form @submit.prevent="addInstructions" >
           <b-form-group
             label="Instructions"
             label-for="instructions"
@@ -237,14 +242,12 @@
               type="text"
               required
             ></b-form-textarea>
-          </b-form-group>
-          <b-button @click="addInstruction" variant="primary">Add</b-button>
+          </b-form-group><div class="modal-footer">
+          <b-button @click="addInstruction"  variant="success">Add</b-button></div>
         </b-form>
       </b-modal>
-
-      <!-- ... Other modals ... -->
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
