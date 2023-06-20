@@ -29,6 +29,7 @@
                 v-model="recipe.about"
                 type="text"
                 required
+                :disabled="!cheakAddRemove(recipe)"
               ></b-form-input>
             </td>
             <td>

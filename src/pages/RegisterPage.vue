@@ -31,7 +31,8 @@
         id="input-group-firstname"
         label="First Name:"
         label-cols-sm="3"
-      class="Mytext">
+        class="Mytext"
+      >
         <b-form-input
           id="firstname"
           type="text"
@@ -41,7 +42,8 @@
       <b-form-group
         id="input-group-lastname"
         label="Last Name:"
-        label-cols-sm="3" class="Mytext"
+        label-cols-sm="3"
+        class="Mytext"
       >
         <b-form-input
           id="lastname"
@@ -113,8 +115,13 @@
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
       </b-form-group>
-      <b-form-group id="input-group-email" label="Email:" label-cols-sm="3" class="Mytext">
-        <b-form-input 
+      <b-form-group
+        id="input-group-email"
+        label="Email:"
+        label-cols-sm="3"
+        class="Mytext"
+      >
+        <b-form-input
           id="email"
           type="email"
           v-model="$v.form.email.$model"
@@ -235,12 +242,16 @@ export default {
           lastname: this.form.lastName,
           country: this.form.country,
         });
-
+        if (!response) {
+          this.$root.toast("Fail", "Username taken", "danger");
+          this.onReset();
+          this.form.submitError = err.response.data.message;
+        }
+        this.$root.toast("Success", "Register success", "success");
         this.$router.push("/login");
         // console.log(response);
       } catch (err) {
-        console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        console.log(err);
       }
     },
     onRegister() {

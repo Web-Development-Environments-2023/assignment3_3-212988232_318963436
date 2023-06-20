@@ -46,7 +46,7 @@ const register = async (
         withCredentials: true,
       }
     );
-    return res.data;
+    return res;
   } catch (err) {
     console.log(err);
   }
