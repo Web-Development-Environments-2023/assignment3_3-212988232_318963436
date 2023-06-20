@@ -10,7 +10,13 @@
     </div>
     <div class="button-container">
       <button @click="openSearchModal" class="button-74">Search Family</button>
-      <button @click="openCreateModal" class="button-74" style="margin-left: 15px;">Create Family</button>
+      <button
+        @click="openCreateModal"
+        class="button-74"
+        style="margin-left: 15px;"
+      >
+        Create Family
+      </button>
     </div>
 
     <b-modal v-model="showSearchModal" title="Search Family">
@@ -35,7 +41,9 @@
               <td>{{ result.name }}</td>
 
               <td>
-                <button @click="addFamily(result, true)" class="button-74">Join</button>
+                <button @click="addFamily(result, true)" class="button-74">
+                  Join
+                </button>
               </td>
             </tr>
           </tbody>
@@ -54,32 +62,38 @@
           placeholder="Enter Family Name"
           required
         />
-        <button type="submit" >Create</button>
+        <button type="submit">Create</button>
       </form>
     </b-modal>
 
     <ul style="margin-top: 35px;">
       <div class="myTitle">
-      <h2> My Families</h2>
-
-    </div>
+        <h2>My Families</h2>
+      </div>
       <tbody>
         <div
           v-for="family in myFamilieswithMembers"
           :key="family.family.family_id"
-        style="margin-bottom: 15px;">
+          style="margin-bottom: 15px;"
+        >
           <tr>
-            <td  style="color: white;">
-              <button @click="toggleFamilyMembers(family)" class="button-89" style="" >
+            <td style="color: white;">
+              <button
+                @click="toggleFamilyMembers(family)"
+                class="button-89"
+                style=""
+              >
                 {{ family.showMembers ? "-" : "+" }}
               </button>
               <router-link
                 :to="{
                   name: 'familyRecipes',
-                  params: { id: family.family.family_id },
+                  params: {
+                    id: family.family.family_id,
+                    name: family.family.name,
+                  },
                 }"
               >
-              
                 {{ family.family.name }}
               </router-link>
             </td>
@@ -255,24 +269,25 @@ export default {
 </script>
 
 <style scoped>
-
-
-
 /* CSS */
 .button-89 {
-  --b: 3px;   /* border thickness */
-  --s: .45em; /* size of the corner */
-  --color: #373B44;
-  
-  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  --b: 3px; /* border thickness */
+  --s: 0.45em; /* size of the corner */
+  --color: #373b44;
+
+  padding: calc(0.5em + var(--s)) calc(0.9em + var(--s));
   color: var(--color);
   --_p: var(--s);
-  background:
-    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
-    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
-  transition: .3s linear, color 0s, background-color 0s;
+  background: conic-gradient(
+      from 90deg at var(--b) var(--b),
+      #0000 90deg,
+      var(--color) 0
+    )
+    var(--_p) var(--_p) / calc(100% - var(--b) - 2 * var(--_p))
+    calc(100% - var(--b) - 2 * var(--_p));
+  transition: 0.3s linear, color 0s, background-color 0s;
   outline: var(--b) solid #0000;
-  outline-offset: .6em;
+  outline-offset: 0.6em;
   font-size: 16px;
   align-self: center;
   border: 0;
@@ -283,10 +298,10 @@ export default {
 }
 
 .button-89:hover,
-.button-89:focus-visible{
+.button-89:focus-visible {
   --_p: 0px;
   outline-color: var(--color);
-  outline-offset: .05em;
+  outline-offset: 0.05em;
 }
 
 .button-89:active {
@@ -315,11 +330,10 @@ table {
   color: #444;
   white-space: nowrap;
   border-collapse: separate;
-  
+
   background-color: #fff;
   border-radius: 4px;
   border-color: #312415;
-
 }
 a {
   font-size: 30px;
