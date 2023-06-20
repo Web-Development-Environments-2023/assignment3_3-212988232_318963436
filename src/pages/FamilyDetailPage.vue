@@ -15,7 +15,7 @@
             <th>image</th>
             <th>Name</th>
             <th>About</th>
-            <th>Add</th>
+            <th>Add/Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -33,11 +33,19 @@
             </td>
             <td>
               <b-button
+                v-if="cheakAddRemove(recipe)"
                 variant="primary"
                 @click="addRecipe(recipe, true)"
                 type="submit"
                 :disabled="!recipe.about"
                 >Add</b-button
+              >
+              <b-button
+                v-else
+                variant="danger"
+                @click="addRecipe(recipe, false)"
+                type="submit"
+                >Remove</b-button
               >
             </td>
           </tr>
@@ -100,6 +108,7 @@ export default {
 
         this.recipes = response.data;
       } catch (error) {
+        this.recipes = [];
         console.log(error);
       }
     },
@@ -123,12 +132,16 @@ export default {
     async addRecipe(recipe, isAdd) {
       try {
         // Assuming you have a method in your store to add a recipe
+        console.log("recipe", recipe);
+        console.log("isAdd", isAdd);
         const response = await this.$store.dispatch("addRecipeToFamily", {
           recipeId: recipe.id,
           familyId: this.$route.params.id,
           about: recipe.about,
           isAdd: isAdd,
         });
+
+        console.log("response", response);
         if (response.status !== 201) {
           this.AddRecipeModalFamily = false;
           this.$root.toast(
@@ -149,6 +162,20 @@ export default {
         );
         recipe.about = "";
         this.AddRecipeModalFamily = false;
+        console.log(error);
+      }
+    },
+    cheakAddRemove(recipe) {
+      try {
+        let flag = true;
+        this.recipes.map((rec) => {
+          if (rec.id === recipe.id) {
+            flag = false;
+            return;
+          }
+        });
+        return flag;
+      } catch (error) {
         console.log(error);
       }
     },

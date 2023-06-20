@@ -83,11 +83,14 @@
       <h3>
         results:
       </h3>
-      <b-row>
-        <b-col v-for="r in recipes" :key="r.id">
-          <RecipePreview class="recipePreview" :recipe="r" />
-        </b-col>
-      </b-row>
+      <div class="container">
+        <RecipePreview
+          v-for="r in recipes"
+          :key="r.id"
+          class="recipePreview"
+          :recipe="r"
+        />
+      </div>
     </b-container>
     <b-container v-else>
       <h3>
@@ -156,8 +159,6 @@ export default {
     },
     async search() {
       try {
-        console.log("searching");
-        console.log(this.form);
         let response = await this.$store.dispatch("search", {
           query: this.form.query,
           cuisine: this.form.cuisine,
