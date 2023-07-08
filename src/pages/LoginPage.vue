@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <h1 class="title">Login</h1>
+    <div class="myTitle">
+      <h1 >Login</h1>
+
+    </div>
     <b-form @submit.prevent="onLogin">
       <b-form-group
         id="input-group-Username"
@@ -43,9 +46,9 @@
         class="mx-auto w-100"
         >Login</b-button
       >
-      <div class="mt-2">
+      <div class="Mytext">
         Do not have an account yet?
-        <router-link to="register"> Register in here</router-link>
+        <router-link to="register"> Register here</router-link>
       </div>
     </b-form>
     <b-alert
@@ -72,19 +75,19 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined
-      }
+        submitError: undefined,
+      },
     };
   },
   validations: {
     form: {
       username: {
-        required
+        required,
       },
       password: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     validateState(param) {
@@ -93,26 +96,21 @@ export default {
     },
     async Login() {
       try {
-        
-        const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
-          this.$root.store.server_domain +"/Login",
-          // "http://132.72.65.211:80/Login",
-          // "http://132.73.84.100:80/Login",
-
-          {
-            username: this.form.username,
-            password: this.form.password
-          }
-        );
+        const response = await this.$store.dispatch("login", {
+          username: this.form.username,
+          password: this.form.password,
+        });
+        console.log(response);
+        if (response.status == 200) {
+          this.$router.push("/");
+        } else {
+          this.form.submitError = response.message;
+        }
         // console.log(response);
         // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
-        this.$root.store.login(this.form.username);
-        this.$router.push("/");
       } catch (err) {
         console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        this.form.submitError = err.response.message;
       }
     },
     onLogin() {
@@ -125,8 +123,8 @@ export default {
       // console.log("login method go");
 
       this.Login();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

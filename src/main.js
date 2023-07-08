@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+import store from "./store";
 
 import routes from "./routes";
 import VueRouter from "vue-router";
@@ -24,6 +25,9 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  ModalPlugin,
+  FormCheckboxPlugin,
+  FormTextareaPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -36,6 +40,9 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  ModalPlugin,
+  FormCheckboxPlugin,
+  FormTextareaPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -84,6 +91,7 @@ console.log(shared_data);
 
 new Vue({
   router,
+  store,
   data() {
     return {
       store: shared_data,
@@ -97,9 +105,12 @@ new Vue({
         variant: variant,
         solid: true,
         appendToast: append,
-        autoHideDelay: 3000,
+        autoHideDelay: 9000,
+        toasterClasses: 'Mytoast'
       });
     },
   },
   render: (h) => h(App),
 }).$mount("#app");
+
+
