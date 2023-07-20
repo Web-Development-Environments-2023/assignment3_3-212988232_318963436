@@ -39,7 +39,13 @@
       love for food, we combined our skills to create this platform for food
       enthusiasts like yourself.
     </p>
+
     <footer class="footer">
+      <p>Previews Assignment:</p>
+      <a
+        href="https://web-development-environments-2023.github.io/assignment2-318963436_212988232/"
+        >Space-Ships Game</a
+      >
       <p>Contact us:</p>
       <a href="mailto:yuvalgor@post.bgu.ac.il">yuvalgor@post.bgu.ac.il</a>
       <a href="mailto:noamaz@post.bgu.ac.il">noamaz@post.bgu.ac.il</a>
@@ -77,5 +83,10 @@ p {
   font-weight: bold;
   cursor: text;
   line-height: 1.5;
+}
+
+a {
+  color: #0035c7;
+  font-size: 20px;
 }
 </style>
