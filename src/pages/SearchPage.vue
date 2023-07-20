@@ -128,10 +128,14 @@ export default {
       intolerances: [{ value: null, text: "", disabled: true }],
     };
   },
+  created() {
+    this.$store.state.lastSearchResults.map((r) => this.recipes.push(r));
+  },
   validations: {
     form: {
       query: {
         required,
+        alpha,
       },
       number: {
         required,
@@ -173,6 +177,11 @@ export default {
         if (response.status == 200) {
           this.recipes = [];
           this.recipes.push(...response.data);
+          this.$store.commit("setLastSearchResults", this.recipes);
+          console.log(
+            "this is last search results",
+            this.$store.lastSearchResults
+          );
         }
       } catch (error) {
         console.log(error);

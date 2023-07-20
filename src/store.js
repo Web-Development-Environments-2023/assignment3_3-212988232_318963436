@@ -7,6 +7,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     username: "",
+    lastSearchResults: [],
   },
   actions: {
     async login({ commit }, { username, password }) {
@@ -144,7 +145,6 @@ const store = new Vuex.Store({
     },
     async getRecipe({ commit }, { recipeId }) {
       try {
-        console.log(recipeId, "from store");
         const res = await user.getRecipe(recipeId);
         return res;
       } catch (err) {
@@ -230,7 +230,6 @@ const store = new Vuex.Store({
     },
     async addRecipeToFamily({ commit }, { familyId, recipeId, about, isAdd }) {
       try {
-        console.log(familyId, recipeId, about, isAdd, "from store");
         const res = await family.addRecipeToFamily(
           familyId,
           recipeId,
@@ -254,10 +253,19 @@ const store = new Vuex.Store({
 
   getters: {
     username: (state) => state.username,
+    lastSearchResults(state) {
+      return state.lastSearchResults;
+    },
   },
   mutations: {
     setUsername(state, username) {
       state.username = username;
+    },
+    setLastSearchResults(state, lastSearchResults) {
+      state.lastSearchResults = [];
+      lastSearchResults.map((recipe) => {
+        state.lastSearchResults.push(recipe);
+      });
     },
   },
 });

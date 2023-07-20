@@ -78,15 +78,12 @@ const shared_data = {
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
-    console.log("login", this.username);
   },
   logout() {
-    console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
   },
 };
-console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;
 
 new Vue({
@@ -106,11 +103,9 @@ new Vue({
         solid: true,
         appendToast: append,
         autoHideDelay: 9000,
-        toasterClasses: 'Mytoast'
+        toasterClasses: "Mytoast",
       });
     },
   },
   render: (h) => h(App),
 }).$mount("#app");
-
-
