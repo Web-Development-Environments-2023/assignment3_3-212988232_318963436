@@ -50,7 +50,7 @@
       style="  position: absolute;
         bottom: 0; "
     >
-      <li>
+      <li  v-if="$store.state.username">
         <img
           :id="'favorite' + this.id"
           type="button"
@@ -59,6 +59,7 @@
           src="../assets/unfavorite.png"
           height="25px"
           width="25px"
+         
         />
         <img
           :id="'unfavorite' + this.id"

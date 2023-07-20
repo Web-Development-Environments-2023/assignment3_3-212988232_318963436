@@ -160,6 +160,7 @@
         title="Add Ingredients"
         hide-footer
         hide-backdrop
+        size="lg"
       >
         <b-form @submit.prevent="searchIngredients">
           <b-form-group
