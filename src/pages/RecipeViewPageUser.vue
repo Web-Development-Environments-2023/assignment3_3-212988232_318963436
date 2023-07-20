@@ -7,7 +7,7 @@
       
       <div class="card-image">
 
-        <img :src="this.image" class="card-img-top"   @error="handleImageError"  />
+        <img :src="this.image" class="card-img-top" style="margin-left: 5%; margin-top: 1%;width: 90%;"  @error="handleImageError"  />
       <ul  class="image-icons">
           <li v-if="this.vegan">
             <img src="../assets/vegan.png" height="100px" width="100px" />
@@ -23,7 +23,7 @@
       
       <div class="card-body">
         
-        <ul>
+        <ul style="position: relative;">
           <li class="my_li">
             <img src="../assets/clock_black.png" height="25px" width="25px" />
             {{ this.readyInMinutes }}
@@ -39,7 +39,7 @@
           </li>
         </ul>
 
-
+<div  v-if="this.ingredients.length>0">
         <h2>ingredients</h2>
         <table>
           <thead>
@@ -64,8 +64,8 @@
             </td>
           </tr>
         </table>
-
-        <h2>instructions</h2>
+      </div>
+        <h2  v-if="this.instructions.length>0">instructions</h2>
         <ol>
           <li class="li_step"
             v-for="instruction in this.instructions"
@@ -157,7 +157,7 @@ export default {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   list-style: none;
   margin: 0;
   padding: 0;
@@ -169,12 +169,12 @@ export default {
 }
 
 .card_image {
-  height: calc(13 * 1.2rem);
+  height: calc(13*1.2rem);
   padding: 1.2rem 1.2rem 0;
-  position: relative;
+  position:relative;
 }
 .card_image:before,
-.card_image:after {
+.card_image:after{
   content: "";
   position: absolute;
   width: 20px;
@@ -184,21 +184,22 @@ export default {
   background: #e6e6e6b8;
   transform: rotate(45deg);
 }
-.card_image:after {
+.card_image:after{
   transform: rotate(-45deg);
-  top: auto;
-  bottom: -22px;
-  left: 40%;
+  top:auto;
+  bottom:-22px;
+  left:40%;
 }
 .card_image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .cards_item {
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
+  filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
 }
+
 
 .card {
   background-color: white;
@@ -207,32 +208,155 @@ export default {
   flex-direction: column;
   overflow: hidden;
   padding-left: 30px;
-  background: repeating-linear-gradient(
-        #0000 0 calc(1.2rem - 1px),
-        #66afe1 0 1.2rem
-      )
-      right bottom / 100% 100%,
-    linear-gradient(red 0 0) 30px 0/2px 100% #fff;
+  background: linear-gradient(red 0 0) 30px 0/2px 100% #fff;
+  background-color: hsl(0, 10%, 94%);
   background-repeat: no-repeat;
   line-height: 1.2rem;
+  -webkit-mask:radial-gradient(circle .8rem at 2px 50%,#0000 98%,#000)0 0/100% 2.4rem;
 }
 
 .card_content {
   padding: 1.2rem;
 }
 
-h2.card_title,
-p {
+h2.card_title,p {
   margin: 1.2rem 0;
 }
 h2.card_title {
-  font-size: 1.3em;
+    font-size: 1.3em;
+}
+body {
+  font-family:monospace;
+  background:#eee;
+}
+
+html {
+  font-size:15px;
 }
 body {
   font-family: monospace;
   background: #eee;
 }
 
+html {
+  font-size: 15px;
+}
+
+.wrapper {
+  display: flex;
+}
+.wrapped {
+  width: 50%;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-top: 160px;
+}
+
+/* .recipe-header{
+
+} */
+
+.table_responsive {
+  max-width: 900px;
+  border: 1px solid #00bcd4;
+  background-color: #efefef33;
+  padding: 15px;
+  overflow: auto;
+  margin: auto;
+  border-radius: 4px;
+}
+table {
+  width: 100%;
+  font-size: 13px;
+  color: #444;
+  white-space: nowrap;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+table > thead {
+  background-color: #00bcd4;
+  color: #fff;
+}
+table > thead th {
+  padding: 15px;
+}
+table th,
+table td {
+  border: 3px solid #00bcd4;
+  padding: 10px 15px;
+}
+table > tbody > tr > td > img {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 6px #0003;
+}
+.action_btn {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.action_btn > a {
+  text-decoration: none;
+  color: #444;
+  background: #fff;
+  border: 1px solid;
+  display: inline-block;
+  padding: 7px 20px;
+  font-weight: bold;
+  border-radius: 3px;
+  transition: 0.3s ease-in-out;
+}
+.action_btn > a:nth-child(1) {
+  border-color: #26a69a;
+}
+.action_btn > a:nth-child(2) {
+  border-color: orange;
+}
+.action_btn > a:hover {
+  box-shadow: 0 3px 8px #0003;
+}
+table > tbody > tr {
+  background-color: #fff;
+  transition: 0.3s ease-in-out;
+}
+table > tbody > tr:nth-child(even) {
+  background-color: rgb(238, 238, 238);
+}
+table > tbody > tr:hover {
+  filter: drop-shadow(0px 2px 6px #0002);
+}
+
+ul {
+  margin-top: 8px;
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+ul:first-child {
+  padding: 0px;
+}
+
+li {
+  padding: 30px;
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
 html {
   font-size: 15px;
 }
