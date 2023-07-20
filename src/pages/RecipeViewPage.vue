@@ -5,7 +5,7 @@
     </div>
     <div class="card" style="width: 50rem;">
       <div class="card-image">
-        <img :src="this.image"   @error="handleImageError" class="card-img-top" />
+        <img :src="this.image"   @error="handleImageError" class="card-img-top" style="margin-left: 5%; margin-top: 1%;width: 90%;"/>
 
         <ul class="image-icons">
           <li v-if="this.vegan">
@@ -21,7 +21,7 @@
       </div>
 
       <div class="card-body">
-        <ul>
+        <ul style="position: absolute;">
           <li>
             <img src="../assets/clock_black.png" height="25px" width="25px" />
             {{ this.readyInMinutes }}
@@ -38,7 +38,8 @@
         </ul>
 
         <p class="card-text"></p>
-        <h3>ingredients</h3>
+        <div v-if="this.ingredients.length>0">
+          <h3>ingredients</h3>
         <table>
           <thead>
             <tr>
@@ -61,8 +62,10 @@
             </td>
           </tr>
         </table>
+        </div>
+        
 
-        <h3>instructions</h3>
+        <h3 v-if="this.instructions.length>0" style="margin-top: 15px;">instructions</h3>
         <ol>
           <li
             v-for="instruction in this.instructions"
@@ -200,10 +203,20 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   list-style: none;
   margin: 0;
   padding: 0;
@@ -215,12 +228,12 @@ export default {
 }
 
 .card_image {
-  height: calc(13 * 1.2rem);
+  height: calc(13*1.2rem);
   padding: 1.2rem 1.2rem 0;
-  position: relative;
+  position:relative;
 }
 .card_image:before,
-.card_image:after {
+.card_image:after{
   content: "";
   position: absolute;
   width: 20px;
@@ -230,21 +243,22 @@ export default {
   background: #e6e6e6b8;
   transform: rotate(45deg);
 }
-.card_image:after {
+.card_image:after{
   transform: rotate(-45deg);
-  top: auto;
-  bottom: -22px;
-  left: 40%;
+  top:auto;
+  bottom:-22px;
+  left:40%;
 }
 .card_image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .cards_item {
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
+  filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
 }
+
 
 .card {
   background-color: white;
@@ -253,26 +267,30 @@ export default {
   flex-direction: column;
   overflow: hidden;
   padding-left: 30px;
-  background: repeating-linear-gradient(
-        #0000 0 calc(1.2rem - 1px),
-        #66afe1 0 1.2rem
-      )
-      right bottom / 100% 100%,
-    linear-gradient(red 0 0) 30px 0/2px 100% #fff;
+  background: linear-gradient(red 0 0) 30px 0/2px 100% #fff;
+  background-color: hsl(0, 10%, 94%);
   background-repeat: no-repeat;
   line-height: 1.2rem;
+  -webkit-mask:radial-gradient(circle .8rem at 2px 50%,#0000 98%,#000)0 0/100% 2.4rem;
 }
 
 .card_content {
   padding: 1.2rem;
 }
 
-h2.card_title,
-p {
+h2.card_title,p {
   margin: 1.2rem 0;
 }
 h2.card_title {
-  font-size: 1.3em;
+    font-size: 1.3em;
+}
+body {
+  font-family:monospace;
+  background:#eee;
+}
+
+html {
+  font-size:15px;
 }
 body {
   font-family: monospace;
@@ -327,7 +345,7 @@ table > thead th {
 }
 table th,
 table td {
-  border: 1px solid #00000017;
+  border: 3px solid #00bcd4;
   padding: 10px 15px;
 }
 table > tbody > tr > td > img {
