@@ -41,7 +41,7 @@
     </p>
 
     <footer class="footer">
-      <p>Previews Assignment:</p>
+      <p>Previous Assignments:</p>
       <a
         href="https://web-development-environments-2023.github.io/assignment2-318963436_212988232/"
         >Space-Ships Game</a

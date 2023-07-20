@@ -99,7 +99,10 @@ export default {
           username: this.form.username,
           password: this.form.password,
         });
+        console.log("now root.store.login", this.form.username);
+
         if (response.status == 200) {
+          this.$root.store.login(this.form.username);
           this.$router.push("/");
         } else {
           this.form.submitError = response.message;
@@ -107,7 +110,7 @@ export default {
         // this.$root.loggedIn = true;
       } catch (err) {
         console.log(err.response);
-        this.form.submitError = err.response.message;
+        this.form.submitError = err.response;
       }
     },
     onLogin() {

@@ -125,9 +125,13 @@ export default {
       show: false,
     };
   },
+  created() {
+    this.$store.commit("setUsername", this.$root.store.username);
+  },
   methods: {
     Logout() {
       this.$store.dispatch("logout", {});
+      this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
