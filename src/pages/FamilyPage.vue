@@ -19,7 +19,13 @@
       </button>
     </div>
 
-    <b-modal v-model="showSearchModal" title="Search Family" hide-footer class="Modal">
+    <b-modal
+      v-model="showSearchModal"
+      title="Search Family"
+      hide-footer
+      class="Modal"
+      hide-backdrop
+    >
       <div>
         <input
           type="text"
@@ -28,8 +34,7 @@
         />
         <div class="modal-footer">
           <b-button @click="searchFamily" variant="success">Search</b-button>
-
-          </div>
+        </div>
 
         <table v-if="searchResults.length > 0" class="search-results-table">
           <thead>
@@ -55,13 +60,14 @@
       </div>
     </b-modal>
 
-      <b-modal
-        v-model="showCreateModal"
-        size="lg"
-        title="Create Family"
-        hide-footer
-        class="Modal"
-      >
+    <b-modal
+      v-model="showCreateModal"
+      size="lg"
+      title="Create Family"
+      hide-footer
+      class="Modal"
+      hide-backdrop
+    >
       <form @submit.prevent="createFamily">
         <label for="familyLastName">Family Name:</label>
         <input
@@ -73,8 +79,8 @@
         />
 
         <div class="modal-footer">
-          <b-button type="submit"  variant="success">Create</b-button>
-          </div>
+          <b-button type="submit" variant="success">Create</b-button>
+        </div>
       </form>
     </b-modal>
 
@@ -163,7 +169,6 @@ export default {
   },
   methods: {
     async toggleFamilyMembers(family) {
-      console.log("toggleFamilyMembers", family);
       family.showMembers = !family.showMembers;
     },
     openSearchModal() {

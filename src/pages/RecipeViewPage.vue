@@ -2,25 +2,24 @@
   <div class="center">
     <div class="myTitle">
       <h1>{{ this.title }}</h1>
- 
     </div>
     <div class="card" style="width: 50rem;">
       <div class="card-image">
         <img :src="this.image" class="card-img-top" />
 
-<ul  class="image-icons">
-    <li v-if="this.vegan">
-      <img src="../assets/vegan.png" height="50px" width="50px" />
-    </li>
-    <li v-if="this.vegetarian">
-      <img src="../assets/vegetarian.png" height="50px" width="50px" />
-    </li>
-    <li v-if="this.glutenFree">
-      <img src="../assets/glutenfree.png" height="50px" width="50px" />
-    </li>
-  </ul>
+        <ul class="image-icons">
+          <li v-if="this.vegan">
+            <img src="../assets/vegan.png" height="50px" width="50px" />
+          </li>
+          <li v-if="this.vegetarian">
+            <img src="../assets/vegetarian.png" height="50px" width="50px" />
+          </li>
+          <li v-if="this.glutenFree">
+            <img src="../assets/glutenfree.png" height="50px" width="50px" />
+          </li>
+        </ul>
       </div>
-      
+
       <div class="card-body">
         <ul>
           <li>
@@ -37,9 +36,8 @@
             {{ this.servings }}
           </li>
         </ul>
-       
-        <p class="card-text">
-        </p>
+
+        <p class="card-text"></p>
         <h3>ingredients</h3>
         <table>
           <thead>
@@ -66,7 +64,12 @@
 
         <h3>instructions</h3>
         <ol>
-          <li v-for="instruction in this.instructions" :key="instruction.id" class="li_step" style="float: none;">
+          <li
+            v-for="instruction in this.instructions"
+            :key="instruction.id"
+            class="li_step"
+            style="float: none;"
+          >
             {{ instruction.step }}
           </li>
         </ol>
@@ -385,7 +388,6 @@ li {
   float: left;
 }
 
-
 li a {
   display: block;
   color: white;
@@ -393,5 +395,4 @@ li a {
   padding: 16px;
   text-decoration: none;
 }
-
 </style>

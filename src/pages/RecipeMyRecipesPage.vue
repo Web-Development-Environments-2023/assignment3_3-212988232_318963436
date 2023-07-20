@@ -20,6 +20,7 @@
         title="Create Recipe"
         hide-footer
         class="Modal"
+        hide-backdrop
       >
         <b-form @submit.prevent="addRecipe" @reset="resetForm">
           <b-form-group label="Title" label-for="title" label-cols-sm="3">
@@ -158,6 +159,7 @@
         v-model="showAddIngredientsModal"
         title="Add Ingredients"
         hide-footer
+        hide-backdrop
       >
         <b-form @submit.prevent="searchIngredients">
           <b-form-group
@@ -233,6 +235,7 @@
         v-model="showAddInstructionsModal"
         title="Add Instructions"
         hide-footer
+        hide-backdrop
       >
         <b-form @submit.prevent="addInstructions">
           <b-form-group
@@ -382,11 +385,9 @@ export default {
       // Populate this.ingredientResults with the search results
       // You can use an API call or any other method to get the results
       try {
-        console.log("this.searchString", this.searchString);
         let response = await this.$store.dispatch("getIngredients", {
           query: this.searchString,
         });
-        console.log("response", response);
         if (response.status != 200) {
           this.ingredientResults = [];
         } else {

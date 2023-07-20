@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <div class="myTitle">
-      <h1 >Login</h1>
-
+      <h1>Login</h1>
     </div>
     <b-form @submit.prevent="onLogin">
       <b-form-group
@@ -100,13 +99,11 @@ export default {
           username: this.form.username,
           password: this.form.password,
         });
-        console.log(response);
         if (response.status == 200) {
           this.$router.push("/");
         } else {
           this.form.submitError = response.message;
         }
-        // console.log(response);
         // this.$root.loggedIn = true;
       } catch (err) {
         console.log(err.response);
@@ -114,7 +111,6 @@ export default {
       }
     },
     onLogin() {
-      // console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {

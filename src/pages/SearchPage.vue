@@ -74,11 +74,12 @@
           Country is required
         </b-form-invalid-feedback>
       </b-form-group>
-<div style="float: right;">
-  <b-button type="reset" variant="danger" style="margin-right: 20px;">Reset</b-button>
-      <b-button type="submit" variant="success">Search</b-button>
-</div>
-
+      <div style="float: right;">
+        <b-button type="reset" variant="danger" style="margin-right: 20px;"
+          >Reset</b-button
+        >
+        <b-button type="submit" variant="success">Search</b-button>
+      </div>
     </b-form>
 
     <b-container v-if="this.recipes.length > 0">

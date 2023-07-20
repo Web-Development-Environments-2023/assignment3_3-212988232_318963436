@@ -211,6 +211,8 @@ export default {
       password: {
         required,
         length: (p) => minLength(5)(p) && maxLength(10)(p),
+        hasNumber: (p) => /\d/.test(p),
+        hasSpecialChar: (p) => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(p),
       },
       confirmedPassword: {
         required,
@@ -223,9 +225,7 @@ export default {
     },
   },
   mounted() {
-    // console.log("mounted");
     this.countries.push(...countries);
-    // console.log($v);
   },
   methods: {
     validateState(param) {
@@ -244,7 +244,6 @@ export default {
         });
         if (!response) {
           this.$root.toast("Fail", "Username taken", "danger");
-          this.onReset();
           this.form.submitError = err.response.data.message;
         }
         this.$root.toast("Success", "Register success", "success");
@@ -255,7 +254,6 @@ export default {
       }
     },
     onRegister() {
-      console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;

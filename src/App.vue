@@ -134,7 +134,6 @@ export default {
       });
     },
     openCreateRecipeModalbind() {
-      console.log("openCreateRecipeModal");
       openCreateRecipeModal();
     },
   },
@@ -345,7 +344,6 @@ h3 {
 
 .card-image {
   position: relative;
-  
 }
 
 .image-icons {
