@@ -52,7 +52,8 @@ const store = new Vuex.Store({
     },
     async randomRecipes({ commit }) {
       try {
-        if (this.state.username == "") {
+        console.log(this.state.username);
+        if (!this.state.username) {
           const res = await user.randomRecipes("/recipes");
           return res;
         } else {
@@ -81,7 +82,7 @@ const store = new Vuex.Store({
     },
     async recipe({ commit }, { recipeId }) {
       try {
-        if (this.state.username == "") {
+        if (!this.state.username) {
           const res = await user.recipe(recipeId, "/recipes");
           return res;
         } else {
@@ -110,7 +111,7 @@ const store = new Vuex.Store({
     },
     async search({ commit }, { query, number, cuisine, diet, intolerances }) {
       try {
-        if (this.state.username == "") {
+        if (!this.state.username) {
           const res = await user.search(
             "recipes",
             query,
